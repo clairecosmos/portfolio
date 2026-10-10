@@ -749,6 +749,10 @@ details.deep > summary .cta{background:var(--ink);color:var(--card)}
 .mbox:has(img),.mbox:has(video){border:0;background:none;aspect-ratio:auto;display:block;border-radius:0}
 .mbox:has(img) .mph,.mbox:has(video) .mph{display:none}
 .mbox:has(img) img,.mbox:has(video) video{position:static;width:100%;height:auto;background:none}
+/* P1 media: image and video share one height per row */
+.media2{display:flex;gap:20px;align-items:flex-start}
+.media2 .mfig{flex:var(--ar,1.6) 1 0;min-width:0}
+@media (max-width:680px){.media2{flex-direction:column}.media2 .mfig{flex:none;width:100%}}
 </style>
 </head>
 <body>
@@ -923,12 +927,12 @@ details.deep > summary .cta{background:var(--ink);color:var(--card)}
         </ul></div>
       </div>
       <div class="media2">
-        <figure class="mfig">
-          <div class="mbox"><span class="mph"><b>Architecture diagram</b>Subscription mechanism, information architecture and user flow<span class="mpath">assets/img/p1-a-architecture.png</span></span><img src="assets/img/p1-a-architecture.png" alt="Architecture of the subscription system: subscription mechanism, information architecture and user flow" loading="lazy" onerror="this.remove()"></div>
+        <figure class="mfig" style="--ar:1.3333">
+          <div class="mbox"><span class="mph"><b>Architecture diagram</b>Subscription mechanism, information architecture and user flow<span class="mpath">assets/img/p1-a-architecture.png</span></span><img src="assets/img/p1-a-architecture.png" alt="Architecture of the subscription system: subscription mechanism, information architecture and user flow" loading="lazy" onerror="this.closest('.mfig').style.removeProperty('--ar');this.remove()"></div>
           <figcaption>Architecture</figcaption>
         </figure>
-        <figure class="mfig">
-          <div class="mbox"><span class="mph"><b>Walkthrough video</b>The live subscription and plan pages<span class="mpath">assets/video/p1-a-walkthrough.mp4</span></span><video src="assets/video/p1-a-walkthrough.mp4" muted loop playsinline controls preload="metadata" data-autoplay aria-label="Walkthrough of the live subscription and plan pages" onerror="this.remove()"></video></div>
+        <figure class="mfig" style="--ar:1.5094">
+          <div class="mbox"><span class="mph"><b>Walkthrough video</b>The live subscription and plan pages<span class="mpath">assets/video/p1-a-walkthrough.mp4</span></span><video src="assets/video/p1-a-walkthrough.mp4" muted loop playsinline controls preload="metadata" data-autoplay aria-label="Walkthrough of the live subscription and plan pages" onerror="this.closest('.mfig').style.removeProperty('--ar');this.remove()"></video></div>
           <figcaption>In use</figcaption>
         </figure>
       </div>
@@ -965,12 +969,12 @@ details.deep > summary .cta{background:var(--ink);color:var(--card)}
       </div>
       <p class="swipe-hint">Swipe or scroll sideways to see the full table.</p>
       <div class="media2">
-        <figure class="mfig">
-          <div class="mbox"><span class="mph"><b>Architecture diagram</b>Audience logic, plan sizing and setup flow<span class="mpath">assets/img/p1-b-architecture.png</span></span><img src="assets/img/p1-b-architecture.png" alt="Architecture of segmentation broadcast: audience logic, plan sizing and setup flow" loading="lazy" onerror="this.remove()"></div>
+        <figure class="mfig" style="--ar:1.3333">
+          <div class="mbox"><span class="mph"><b>Architecture diagram</b>Audience logic, plan sizing and setup flow<span class="mpath">assets/img/p1-b-architecture.png</span></span><img src="assets/img/p1-b-architecture.png" alt="Architecture of segmentation broadcast: audience logic, plan sizing and setup flow" loading="lazy" onerror="this.closest('.mfig').style.removeProperty('--ar');this.remove()"></div>
           <figcaption>Architecture</figcaption>
         </figure>
-        <figure class="mfig">
-          <div class="mbox"><span class="mph"><b>Walkthrough video</b>Choosing a goal, picking products, copy and offers, scheduling<span class="mpath">assets/video/p1-b-walkthrough.mp4</span></span><video src="assets/video/p1-b-walkthrough.mp4" muted loop playsinline controls preload="metadata" data-autoplay aria-label="Walkthrough of the live broadcast tool: choosing a goal, picking products, copy and offers, scheduling" onerror="this.remove()"></video></div>
+        <figure class="mfig" style="--ar:1.5094">
+          <div class="mbox"><span class="mph"><b>Walkthrough video</b>Choosing a goal, picking products, copy and offers, scheduling<span class="mpath">assets/video/p1-b-walkthrough.mp4</span></span><video src="assets/video/p1-b-walkthrough.mp4" muted loop playsinline controls preload="metadata" data-autoplay aria-label="Walkthrough of the live broadcast tool: choosing a goal, picking products, copy and offers, scheduling" onerror="this.closest('.mfig').style.removeProperty('--ar');this.remove()"></video></div>
           <figcaption>In use</figcaption>
         </figure>
       </div>
@@ -988,12 +992,12 @@ details.deep > summary .cta{background:var(--ink);color:var(--card)}
         
       </div>
       <div class="media2">
-        <figure class="mfig">
-          <div class="mbox"><span class="mph"><b>Architecture diagram</b>Page structure, templates and entry flow<span class="mpath">assets/img/p1-curation-plan.png</span></span><img src="assets/img/p1-curation-plan.png" alt="Architecture of the shop curation tool: page structure, templates and entry flow" loading="lazy" onerror="this.remove()"></div>
+        <figure class="mfig" style="--ar:1.3333">
+          <div class="mbox"><span class="mph"><b>Architecture diagram</b>Page structure, templates and entry flow<span class="mpath">assets/img/p1-curation-plan.png</span></span><img src="assets/img/p1-curation-plan.png" alt="Architecture of the shop curation tool: page structure, templates and entry flow" loading="lazy" onerror="this.closest('.mfig').style.removeProperty('--ar');this.remove()"></div>
           <figcaption>Architecture</figcaption>
         </figure>
-        <figure class="mfig">
-          <div class="mbox"><span class="mph"><b>Walkthrough video</b>Templates, the page editor and the page on the shop<span class="mpath">assets/video/p1-c-walkthrough.mp4</span></span><video src="assets/video/p1-c-walkthrough.mp4" muted loop playsinline controls preload="metadata" data-autoplay aria-label="Walkthrough of the shop curation tool: templates, the page editor and the page on the shop" onerror="this.remove()"></video></div>
+        <figure class="mfig" style="--ar:1.4675">
+          <div class="mbox"><span class="mph"><b>Walkthrough video</b>Templates, the page editor and the page on the shop<span class="mpath">assets/video/p1-c-walkthrough.mp4</span></span><video src="assets/video/p1-c-walkthrough.mp4" muted loop playsinline controls preload="metadata" data-autoplay aria-label="Walkthrough of the shop curation tool: templates, the page editor and the page on the shop" onerror="this.closest('.mfig').style.removeProperty('--ar');this.remove()"></video></div>
           <figcaption>In use</figcaption>
         </figure>
       </div>
@@ -1342,7 +1346,7 @@ details.deep > summary .cta{background:var(--ink);color:var(--card)}
   <h2 id="othert">More of how I build, teach and work with people.</h2>
   <div class="other">
     <div class="oc">
-      <figure class="ocover"><img src="assets/img/other-coaching-cover.jpg" alt="Screenshot of the Monthly 1:1 Coaching Practice website" loading="lazy" onerror="this.remove()"><figcaption>assets/img/other-coaching-cover.jpg</figcaption></figure>
+      <figure class="ocover"><img src="assets/img/other-coaching-cover.png" alt="Screenshot of the Monthly 1:1 Coaching Practice website" loading="lazy" onerror="this.remove()"><figcaption>assets/img/other-coaching-cover.png</figcaption></figure>
       <span class="olabel">Service design &amp; website build</span>
       <h3>Monthly 1:1 Coaching Practice</h3>
       <p class="olead">A coaching service. Also a codebase.</p>
@@ -1350,14 +1354,14 @@ details.deep > summary .cta{background:var(--ink);color:var(--card)}
       <a class="olink" href="https://clairecosmos.com/monthly-coaching/" target="_blank" rel="noopener">Visit the live site ↗</a>
     </div>
     <div class="oc">
-      <figure class="ocover"><img src="assets/img/other-chronicle-cover.jpg" alt="Preview of the Chronicle product plan" loading="lazy" onerror="this.remove()"><figcaption>assets/img/other-chronicle-cover.jpg</figcaption></figure>
+      <figure class="ocover"><img src="assets/img/other-chronicle-cover.png" alt="Preview of the Chronicle product plan" loading="lazy" onerror="this.remove()"><figcaption>assets/img/other-chronicle-cover.png</figcaption></figure>
       <span class="olabel">Product concept &amp; planning</span>
       <h3>Chronicle: Record in the moment, interpret in hindsight</h3>
       <p>A timeline-based note product concept that turns personal records into a structured system for revisiting decisions and patterns.</p>
       <a class="olink" href="https://docs.google.com/document/u/1/d/e/2PACX-1vS6rCWzaZXkJsew50tlXAQzjfUwnrn8r9ISfJRMtfQw50N7JlfRPZZyAUT_hY1e_tl0GEO4o578RKqX/pub" target="_blank" rel="noopener">Read the product plan ↗</a>
     </div>
     <div class="oc">
-      <figure class="ocover"><img src="assets/img/other-training-cover.jpg" alt="Claire training Shopee Account Managers" loading="lazy" onerror="this.remove()"><figcaption>assets/img/other-training-cover.jpg</figcaption></figure>
+      <figure class="ocover"><img src="assets/img/other-training-cover.png" alt="Claire training Shopee Account Managers" loading="lazy" onerror="this.remove()"><figcaption>assets/img/other-training-cover.png</figcaption></figure>
       <span class="olabel">Internal Sales Enablement</span>
       <h3>Enabling Sales to Drive Ads Growth</h3>
       <p class="ometa">Training Shopee Account Managers across product categories</p>
@@ -1461,6 +1465,15 @@ document.querySelectorAll('details.deep').forEach(function(d){
     });
   },{threshold:0.4});
   vids.forEach(function(v){ io.observe(v); });
+})();
+
+(function(){
+  document.querySelectorAll('.media2 .mfig').forEach(function(f){
+    var m=f.querySelector('img,video'); if(!m) return;
+    function set(){ var w=m.naturalWidth||m.videoWidth, h=m.naturalHeight||m.videoHeight; if(w&&h) f.style.setProperty('--ar',(w/h).toFixed(4)); }
+    if(m.tagName==='IMG'){ if(m.complete) set(); else m.addEventListener('load',set); }
+    else { if(m.readyState>=1) set(); else m.addEventListener('loadedmetadata',set); }
+  });
 })();
 
 </script>
