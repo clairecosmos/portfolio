@@ -744,6 +744,11 @@ details.deep > summary .cta{background:var(--ink);color:var(--card)}
   -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 9%,#000 91%,transparent 100%);
   mask-image:linear-gradient(90deg,transparent 0,#000 9%,#000 91%,transparent 100%)}
 @media (max-width:900px){.hero-img{max-width:520px}}
+/* P1 media: no frame once a file is present; natural aspect ratio */
+.media2{align-items:start}
+.mbox:has(img),.mbox:has(video){border:0;background:none;aspect-ratio:auto;display:block;border-radius:0}
+.mbox:has(img) .mph,.mbox:has(video) .mph{display:none}
+.mbox:has(img) img,.mbox:has(video) video{position:static;width:100%;height:auto;background:none}
 </style>
 </head>
 <body>
