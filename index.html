@@ -755,6 +755,69 @@ details.deep > summary .cta{background:var(--ink);color:var(--card)}
 .media2{display:flex;gap:20px;align-items:flex-start}
 .media2 .mfig{flex:var(--ar,1.6) 1 0;min-width:0}
 @media (max-width:680px){.media2{flex-direction:column}.media2 .mfig{flex:none;width:100%}}
+/* ===== v15: information hierarchy & reading paths ===== */
+/* Tier 1: each case opens with its problem and key judgment */
+.brief{margin-top:32px;max-width:70ch;gap:12px 20px}
+.brief dt{font-size:13px;padding-top:4px}
+.brief dd{font-size:17.5px;line-height:1.5}
+.brief dd.key{font-weight:650}
+/* Tier 3: contribution, quieter than results */
+.own{margin-top:36px}
+.own .own-h{color:var(--muted)}
+.own li{font-size:13.5px;color:var(--muted)}
+.own b{color:var(--text);font-weight:600}
+/* decisions as plain columns where they support a main visual */
+.decisions.lite{column-gap:40px}
+.decisions.lite .dc{background:none;border-radius:0;border-top:0;border-left:2px solid var(--olive);padding:2px 0 2px 18px}
+.label.bare{border-bottom:0;padding-bottom:0;margin-bottom:14px}
+/* P1: one foundation, then paid tools on top of it */
+.stack{margin-top:4px}
+.stack .rm.first{background:var(--sage);border-color:var(--olive)}
+.stack-tools{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px}
+.stack-tools .rm{position:relative}
+.stack-tools .rm::before{content:"";position:absolute;left:28px;top:-25.5px;height:24px;border-left:2px solid var(--olive)}
+/* P2: scope next to the quadrant, then the test as three steps */
+.gs{display:flex;flex-direction:column;gap:28px}
+.gs-t{font-size:15.5px;color:var(--ink);line-height:1.55}
+.scope{display:grid;grid-template-columns:64px 1fr;gap:8px 12px;margin:0}
+.scope dt{grid-column:1;font-size:12.5px;font-weight:650;color:var(--olive);padding-top:2px}
+.scope dd{grid-column:2;margin:0;font-size:14.5px;line-height:1.5}
+.xflow{display:flex;align-items:stretch;margin-top:4px}
+.xflow .xs{flex:1;border-top:2px solid var(--olive);padding:12px 4px 0 0;display:flex;flex-direction:column;gap:4px}
+.xflow .xs.wide{flex:1.6}
+.xflow .n{font-size:12px;font-weight:700;color:var(--olive)}
+.xflow b{font-size:15.5px;color:var(--ink)}
+.xflow .xs span:not(.n){font-size:13.5px}
+.xflow .xa{display:flex;align-items:center;padding:0 16px;color:var(--olive);font-size:18px}
+/* P4: the versions as a timeline */
+#p4 .mvp{gap:0;margin-top:14px}
+#p4 .mvp .ar{display:none}
+#p4 .mvp .mv{position:relative;border:0;border-top:3px solid var(--ph-line);border-radius:0;background:none;padding:18px 18px 0 0}
+#p4 .mvp .mv::before{content:"";position:absolute;left:0;top:-9.5px;width:16px;height:16px;border-radius:50%;background:var(--page);border:3px solid var(--olive);box-sizing:border-box}
+#p4 .mvp .mv.live{border-top-color:var(--olive);background:none}
+#p4 .mvp .mv.live::before{background:var(--olive)}
+@media (max-width:900px){
+  .stack-tools{grid-template-columns:1fr}
+  .stack-tools .rm + .rm::before{display:none}
+  .xflow{flex-direction:column}
+  .xflow .xa{justify-content:center;transform:rotate(90deg);padding:6px 0}
+  #p4 .mvp{padding-left:8px}
+  #p4 .mvp .mv{border-top:0;border-left:3px solid var(--ph-line);padding:0 0 18px 22px}
+  #p4 .mvp .mv.live{border-left-color:var(--olive)}
+  #p4 .mvp .mv::before{left:-9.5px;top:2px}
+}
+@media (max-width:540px){.brief dd{font-size:16.5px}}
+/* ===== v16: results get their own heading and more room ===== */
+.label.kr{margin-top:72px;margin-bottom:12px}
+.label.kr + .impact,.label.kr + .proof3{margin-top:0}
+@media (max-width:900px){.label.kr{margin-top:56px}}
+/* ===== v17: My role heading matches the section labels ===== */
+.own{max-width:none;margin-top:56px}
+.own .own-h{font-size:18px;font-weight:650;color:var(--ink);margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+.own ul{max-width:80ch}
+/* ===== v18: outlined try button ===== */
+.trylink{background:var(--card);color:var(--olive);border:1.5px solid var(--olive);margin-top:20px}
+.trylink:hover{opacity:1;background:var(--sage)}
 </style>
 </head>
 <body>
@@ -806,13 +869,13 @@ details.deep > summary .cta{background:var(--ink);color:var(--card)}
 
 <!-- CORE STRENGTHS -->
 <section class="block" id="about" aria-labelledby="bring">
-  <p class="kicker">Core strengths</p>
+  <p class="kicker">Core Capabilities</p>
   <h2 id="bring">Four strengths I bring to product and strategy work.</h2>
   <div class="bring">
-    <div class="bc"><span class="area-n">Product</span><h3>Turn unclear needs into products.</h3></div>
-    <div class="bc"><span class="area-n">Growth</span><h3>Find the signal behind user behavior.</h3></div>
-    <div class="bc"><span class="area-n">Business</span><h3>Design systems where multiple goals can work together.</h3></div>
-    <div class="bc"><span class="area-n">Building</span><h3>Take ideas beyond plans.</h3></div>
+    <div class="bc"><span class="area-n">Product Strategy</span><h3>Turn unclear needs into products.</h3></div>
+    <div class="bc"><span class="area-n">Growth &amp; Experimentation</span><h3>Find the signal behind user behavior.</h3></div>
+    <div class="bc"><span class="area-n">Business Model Design</span><h3>Design systems where multiple goals can work together.</h3></div>
+    <div class="bc"><span class="area-n">0→1 Product Execution</span><h3>Take ideas beyond plans.</h3></div>
   </div>
 </section>
 
@@ -848,7 +911,7 @@ details.deep > summary .cta{background:var(--ink);color:var(--card)}
       <span class="ov-t">Pinkoi User Touchpoints Testing</span>
       <span class="ov-cap">Data → hypothesis → controlled experiment</span>
       <span class="ov-d">Used <strong>advertiser behavior</strong> to find where <strong>targeted intervention</strong> could move acquisition and retention.</span>
-      <span class="ov-k">~236% growth in new users starting ads</span>
+      <span class="ov-k">~236% relative growth in new-user ad starts</span>
       <span class="ov-go">Go to project ↓</span>
     </a>
     <a class="ovc" href="#p3">
@@ -863,7 +926,7 @@ details.deep > summary .cta{background:var(--ink);color:var(--card)}
       <span class="ov-n">04</span>
       <span class="ov-t">Morning Check-in</span>
       <span class="ov-cap">Independent product + technical judgment</span>
-      <span class="ov-d">Took a personal problem from <strong>a phone note to a live PWA</strong> with <strong>AI-assisted development</strong>.</span>
+      <span class="ov-d">A tool to <strong>decide each morning how much energy to spend</strong>, taken from a phone note to a <strong>live PWA</strong> with AI-assisted development.</span>
       <span class="ov-k">4 MVP versions to public launch</span>
       <span class="ov-go">Go to project ↓</span>
     </a>
@@ -876,34 +939,34 @@ details.deep > summary .cta{background:var(--ink);color:var(--card)}
     <p class="kicker">Project 01</p>
     <h2 id="p1t">Pinkoi’s first subscription SaaS for sellers</h2>
     <div class="meta-row"><span>Pinkoi</span><span>Project Manager, Seller-facing SaaS Tools</span><em>Taiwan, Hong Kong and Macau</em></div>
-    <p class="thesis">I built the commercial and product foundation for a new paid service, from the subscription model and pricing to the first two products.</p>
     <div class="mini"><span class="on">Frame</span><span class="on">Validate</span><span class="on">Prioritize</span><span class="on">Trade-offs</span><span>Learn &amp; adjust</span></div>
   </div>
 
-  <dl class="brief" style="margin-top:36px"><dt>Goal</dt><dd>Grow platform revenue through Pinkoi’s first paid service for sellers, on a subscription structure that fits Pinkoi.</dd></dl>
+  <dl class="brief"><dt>Problem</dt><dd>Pinkoi had no subscription system for sellers yet, and paid features had to offer more than the free tools sellers already used.</dd><dt>Goal</dt><dd>Grow platform revenue through Pinkoi’s first paid service for sellers, on a subscription structure that fits Pinkoi.</dd></dl>
 
-  <p class="label" style="margin-top:28px">Roadmap: one foundation, then paid tools</p>
-  <div class="roadmap" aria-label="Product architecture" style="margin-top:4px">
+  <p class="label" style="margin-top:40px">Roadmap: one foundation, then paid tools</p>
+  <div class="stack" aria-label="Product architecture">
     <div class="rm first"><span class="n">01 · Subscription foundation</span><h4>Build the foundation before scaling paid tools</h4><p>Plans, trials, billing and terms needed to work as a shared subscription system before individual tools could scale.</p></div>
-    <div class="arrow" aria-hidden="true">→</div>
-    <div class="rm"><span class="n">02 · Segmentation Broadcast</span><h4>Design around seller goals and reachable audiences</h4><p>Sellers choose a marketing goal; audience and product selection follow, with plans sized to the audience they can reach.</p></div>
-    <div class="arrow" aria-hidden="true">→</div>
-    <div class="rm"><span class="n">03 · Shop Curation</span><h4>Upgrade an existing tool instead of rebuilding</h4><p>Reworked the Flagship tool with templates, onboarding and direct links to page sections, focusing limited front-end resources on high-value improvements.</p></div>
+    <div class="stack-tools">
+      <div class="rm"><span class="n">02 · Segmentation Broadcast</span><h4>Design around seller goals and reachable audiences</h4><p>Sellers choose a marketing goal; audience and product selection follow, with plans sized to the audience they can reach.</p></div>
+      <div class="rm"><span class="n">03 · Shop Curation</span><h4>Upgrade an existing tool instead of rebuilding</h4><p>Reworked the Flagship tool with templates, onboarding and direct links to page sections, focusing limited front-end resources on high-value improvements.</p></div>
+    </div>
   </div>
 
   <p class="label" style="margin-top:40px">Key decisions</p>
-  <div class="decisions d2" style="margin-top:4px">
+  <div class="decisions d2 lite" style="margin-top:4px">
     <div class="dc"><span class="dn">01 · Product strategy</span><h4>Set a clear bar for paid value</h4><p>Prioritized capabilities that could deliver meaningful commercial value beyond what sellers could achieve through existing free tools.</p></div>
     <div class="dc"><span class="dn">02 · Monetization &amp; adoption</span><h4>Balance adoption with monetization</h4><p>Designed low-friction entry points and goal-based workflows alongside pricing structures that reflected sellers’ reachable audiences and spending potential.</p></div>
   </div>
 
+  <p class="label bare kr">Key results</p>
   <div class="impact">
     <div><span class="hero-n">121%</span><p>MAU target achieved in about 10 days after launch</p><span class="fn">Subscribed shops by 9/30 ÷ MAU target · free trials included</span></div>
     <div><span class="sup-n">15.4%</span><p>Average broadcast open rate</p><span class="fn">Users who opened within 7 days ÷ recipients, averaged across all broadcasts by 9/30</span></div>
     <div><span class="sup-n">0</span><p>Support tickets about subscription usability</p><span class="fn">Tickets about understanding the subscription, the flow or billing, since launch</span></div>
   </div>
 
-  <div class="own"><p class="own-h">My role</p><ul><li><b>Project owner:</b> led the paid service from planning to launch</li><li><b>Strategy:</b> set the paid-feature rule and the order of the three products</li><li><b>Business model and pricing:</b> subscription model, plans and pricing</li><li><b>Roadmap and product documents:</b> priorities for the infrastructure and every feature</li></ul></div>
+  <div class="own"><p class="own-h">My contribution</p><ul><li><b>Project owner:</b> led the paid service from planning to launch</li><li><b>Strategy:</b> set the paid-feature rule and the order of the three products</li><li><b>Business model and pricing:</b> subscription model, plans and pricing</li><li><b>Roadmap and product documents:</b> priorities for the infrastructure and every feature</li></ul></div>
 
   <details class="deep">
     <summary>
@@ -1014,44 +1077,39 @@ details.deep > summary .cta{background:var(--ink);color:var(--card)}
     <p class="kicker">Project 02</p>
     <h2 id="p2t">Finding data-led levers to grow acquisition and retention</h2>
     <div class="meta-row"><span>Pinkoi</span><span>Product Marketing Manager, Self-serve Ads Tool</span><em>Official title: Account Manager</em></div>
-    <p class="thesis">I started from advertiser behavior, segmented users by spend and ROAS, and turned the patterns into a controlled test with tailored interventions.</p>
     <div class="mini"><span class="on">Frame</span><span class="on">Validate</span><span>Prioritize</span><span>Trade-offs</span><span class="on">Learn &amp; adjust</span></div>
   </div>
 
-  <dl class="brief" style="margin-top:36px"><dt>Goal</dt><dd>Move every group toward the top right: strong results and higher investment, a long-term, stable relationship with ads.</dd></dl>
+  <dl class="brief"><dt>Behavior</dt><dd>Ads stop showing once the daily budget runs out. Below a certain budget, they get too few impressions to produce orders.</dd><dt>Hypothesis</dt><dd class="key">Some sellers have good products but budgets too small to show it.</dd></dl>
 
-  <div class="quad-wrap2" style="margin-top:28px">
+  <div class="quad-wrap2" style="margin-top:40px">
     <div>
       <p class="label">Existing users, grouped by ad spending and ROAS</p>
       <div class="quad" role="img" aria-label="Four groups by ad spending and ROAS">
         <div class="ax-y">ROAS →</div>
         <div class="q"><span class="d">Low spend, high ROAS</span><h4>Lucky hits</h4><p>Ads already work, but the seller does not see the value yet.</p></div>
-        <div class="q"><span class="d">High spend, high ROAS</span><h4>High potential</h4><span class="qgoal">Goal for every group</span></div>
+        <div class="q"><span class="d">High spend, high ROAS</span><h4>High potential</h4><span class="qgoal">Long-term goal for every group</span></div>
         <div class="q off"><span class="d">Low spend, low ROAS</span><h4>Unaware</h4><p>Barely using ads. Left out of the test.</p></div>
         <div class="q"><span class="d">High spend, low ROAS</span><h4>Easily discouraged</h4></div>
         <div class="ax-x">Ad spending →</div>
       </div>
     </div>
-    <div>
-      <p class="label">From segment to result</p>
-      <div class="flowv">
-        <div class="fv"><b>Segment</b><span>Groups by spend and ROAS; new users by exposure or sales focus</span></div>
-        <div class="fa">↓</div>
-        <div class="fv"><b>Intervention</b><span>A tailored tip in the Seller Dashboard, linked to a help article</span></div>
-        <div class="fa">↓</div>
-        <div class="fv"><b>Test / Control</b><span>Random, even groups</span></div>
-        <div class="fa">↓</div>
-        <div class="fv"><b>Result</b><span>Acquisition, retention and reactivation compared</span></div>
-      </div>
+    <div class="gs">
+      <div><p class="label">Long-term goal</p><p class="gs-t">Move every group toward the top right: strong results and higher investment, a long-term, stable relationship with ads.</p></div>
+      <div><p class="label">Experiment scope</p><dl class="scope"><dt>In</dt><dd>New users, in two groups: exposure-focused and sales-focused</dd><dd>Existing users in three of the four groups, including sellers inactive the week before (tracked for reactivation)</dd><dt>Left out</dt><dd>Low spend, low ROAS: barely using ads. The test focused on groups where a tip could change behavior.</dd></dl></div>
     </div>
   </div>
 
-  <p class="label" style="margin-top:40px">Key decisions</p>
-  <div class="decisions d2" style="margin-top:4px">
-    <div class="dc"><span class="dn">01</span><h4>Segmented by spend and ROAS</h4><p>Below a certain budget, ads get too few impressions to produce orders. That pointed to sellers with good products but budgets too small to show it.</p></div>
-    <div class="dc"><span class="dn">02</span><h4>Tailored help, in positive language</h4><p>Each group got the help it needed, worded to build confidence, and was measured against a random control group.</p></div>
+  <p class="label bare" style="margin-top:40px">Experiment design</p>
+  <div class="xflow">
+    <div class="xs wide"><span class="n">1</span><b>Tailored tip</b><span>One tip per group in the Seller Dashboard, linked to a help article and worded to build confidence</span></div>
+    <div class="xa" aria-hidden="true">→</div>
+    <div class="xs"><span class="n">2</span><b>Test / Control</b><span>Random, even groups</span></div>
+    <div class="xa" aria-hidden="true">→</div>
+    <div class="xs"><span class="n">3</span><b>Result</b><span>Acquisition, retention and reactivation compared</span></div>
   </div>
 
+  <p class="label bare kr">Key results</p>
   <div class="impact i2">
     <div><span class="hero-n">~236%</span><p>Growth in the rate of new users starting ads: 1.7 percentage points higher than the control group</p><span class="fn">(Start rate of sellers who saw the tip ÷ start rate of the control group) − 1 · phase 1</span></div>
     <div><span class="sup-n">4.22%</span><p>Growth in existing-user retention: 3.63 percentage points higher than the control group</p><span class="fn">(Retention of sellers who saw the tip ÷ retention of the control group) − 1</span></div>
@@ -1062,7 +1120,7 @@ details.deep > summary .cta{background:var(--ink);color:var(--card)}
     <p>The insight also became a new segmentation used by AMs after the test. With little development capacity at the time, it also produced two product needs for later: pinned tips, and copy by user type.</p>
   </div>
 
-  <div class="own"><p class="own-h">My role</p><ul><li><b>Test owner:</b> led the test end to end</li><li><b>Data and segmentation:</b> reviewed advertiser data and defined the user groups</li><li><b>Test design and copy:</b> set up test and control groups and wrote the message for each group</li><li><b>Analysis:</b> ran interim and final analysis, and turned results into AM segmentation and product needs</li></ul></div>
+  <div class="own"><p class="own-h">My contribution</p><ul><li><b>Test owner:</b> led the test end to end</li><li><b>Data and segmentation:</b> reviewed advertiser data and defined the user groups</li><li><b>Test design and copy:</b> set up test and control groups and wrote the message for each group</li><li><b>Analysis:</b> ran interim and final analysis, and turned results into AM segmentation and product needs</li></ul></div>
 
   <details class="deep">
     <summary>
@@ -1112,11 +1170,12 @@ details.deep > summary .cta{background:var(--ink);color:var(--card)}
     <p class="kicker">Project 03</p>
     <h2 id="p3t">A multi-party growth mechanism that added US$2.5M+ in ad spending</h2>
     <div class="meta-row"><span>Shopee</span><span>Account Manager, Shopee Ads</span><em>Taiwan</em></div>
-    <p class="thesis">The challenge was not simply getting sellers to spend more. Many struggled to operate ads effectively, leading to poor results and churn.</p>
     <div class="mini"><span class="on">Frame</span><span class="on">Validate</span><span class="on">Prioritize</span><span>Trade-offs</span><span class="on">Learn &amp; adjust</span></div>
   </div>
 
-  <p class="label" style="margin-top:36px">The solution shifted from product intervention to ecosystem design</p>
+  <dl class="brief"><dt>Problem</dt><dd>Many sellers struggled to operate ads effectively, which led to poor results and churn.</dd><dt>Goal</dt><dd>Grow ad spending among high-GMV sellers who invested less in ads than their peers.</dd></dl>
+
+  <p class="label" style="margin-top:40px">The solution shifted from product intervention to ecosystem design</p>
   <div class="shift" aria-label="How the solution shifted">
     <div class="sh"><span class="sk">User problem</span><b>Ads are hard to operate</b></div>
     <div class="sa" aria-hidden="true">→</div>
@@ -1131,13 +1190,14 @@ details.deep > summary .cta{background:var(--ink);color:var(--card)}
   <p class="label" style="margin-top:32px">One program, four incentives</p>
   <div class="scroll aln" tabindex="0" aria-label="Incentive alignment, scroll sideways"><table><thead><tr><th>Party</th><th>Goal</th><th>Program lever</th></tr></thead><tbody><tr><td><span class="case">Seller</span></td><td>Better ad results</td><td>Agency execution + rebates</td></tr><tr><td><span class="case">Sales</span></td><td>Hit targets</td><td>Incentive to move sellers toward the next package</td></tr><tr><td><span class="case">Ads team</span></td><td>Spending, retention, ROAS</td><td>Growth without having to operate every seller’s ads</td></tr><tr><td><span class="case">Agency</span></td><td>Stable business</td><td>Recurring seller volume + fee income</td></tr></tbody></table></div>
 
+  <p class="label bare kr">Key results</p>
   <div class="impact">
     <div><span class="hero-n">US$2.5M+</span><p>Ad spending added in nine months, beyond the growth of sellers who did not join</p><span class="fn">Joined sellers’ Jan–Sep 2020 spend × (133% − 43%) · converted at about 28 TWD per USD</span></div>
     <div><span class="sup-n">+133%</span><p>Ad spending growth among participating sellers, compared with +43% for listed sellers who did not join</p><span class="fn">(Jan–Sep 2021 ad spend ÷ Jan–Sep 2020 ad spend) − 1, per group, same target list</span></div>
     <div><span class="sup-n">90.82%</span><p>Sellers who signed a long-term package after the agency trial</p><span class="fn">Sellers who signed a package ÷ sellers who joined the trial</span></div>
   </div>
 
-  <div class="own"><p class="own-h">My role</p><ul><li><b>Program owner:</b> designed and ran the whole program</li><li><b>Seller selection &amp; targets:</b> chose sellers with data and set a growth target for each</li><li><b>Mechanism design:</b> package levels, agency fees and rebates</li><li><b>Tracking &amp; partnership:</b> tracked spending, contracts and rebates, and led the agency partnership</li></ul></div>
+  <div class="own"><p class="own-h">My contribution</p><ul><li><b>Program owner:</b> designed and ran the whole program</li><li><b>Seller selection &amp; targets:</b> chose sellers with data and set a growth target for each</li><li><b>Mechanism design:</b> package levels, agency fees and rebates</li><li><b>Tracking &amp; partnership:</b> tracked spending, contracts and rebates, and led the agency partnership</li></ul></div>
 
   <details class="deep">
     <summary>
@@ -1231,37 +1291,38 @@ details.deep > summary .cta{background:var(--ink);color:var(--card)}
     <p class="kicker">Project 04</p>
     <h2 id="p4t">Morning Check-in: from a personal problem to a live PWA</h2>
     <div class="meta-row"><span>Independent</span><span>Product Builder</span></div>
-    <p class="thesis">I took a problem I experienced myself from a simple morning check-in to a live product, validating the idea through four MVP versions and building the final version with AI-assisted development.</p>
-    <dl class="brief"><dt>Problem</dt><dd>Holding every day to the same standard leads to guilt on bad days, and to burnout.</dd><dt>Goal</dt><dd>Help people decide each morning how much energy to spend, based on how they actually feel.</dd></dl>
-    <a class="trylink" href="https://morning-check-in.clairecosmos.com/" target="_blank" rel="noopener">Try the PWA: morning-check-in.clairecosmos.com ↗</a>
     <div class="mini"><span class="on">Frame</span><span class="on">Validate</span><span class="on">Prioritize</span><span class="on">Trade-offs</span><span class="on">Learn &amp; adjust</span></div>
+    <a class="trylink" href="https://morning-check-in.clairecosmos.com/" target="_blank" rel="noopener">Login &amp; try Morning Check-in ↗</a>
+    <dl class="brief"><dt>Problem</dt><dd>Holding every day to the same standard leads to guilt on bad days, and to burnout.</dd><dt>Goal</dt><dd>Help people decide each morning how much energy to spend, based on how they actually feel.</dd></dl>
   </div>
 
+  <p class="label bare" style="margin-top:40px">How it evolved</p>
   <div class="mvp" aria-label="MVP evolution">
-    <div class="mv"><span class="when">Feb</span><h4>Phone note</h4><p>+ iPhone Shortcut</p></div>
+    <div class="mv"><h4>Phone note</h4><p>+ iPhone Shortcut</p></div>
     <div class="ar" aria-hidden="true">→</div>
-    <div class="mv"><span class="when">Mid-Mar</span><h4>Google Form + Sheets</h4><p>Weekly email report, first friend beta</p></div>
+    <div class="mv"><h4>Google Form + Sheets</h4><p>Weekly email report via Apps Script, first friend beta</p></div>
     <div class="ar" aria-hidden="true">→</div>
-    <div class="mv"><span class="when">Jun</span><h4>AI prototype</h4><p>Claude artifact, daily to-do list added</p></div>
+    <div class="mv"><h4>AI prototype</h4><p>Claude artifact, daily to-do list added</p></div>
     <div class="ar" aria-hidden="true">→</div>
-    <div class="mv"><span class="when">Aug</span><h4>Full PRD + Claude Code</h4><p>A three-phase roadmap</p></div>
+    <div class="mv"><h4>Full PRD + Claude Code</h4><p>A three-phase roadmap</p></div>
     <div class="ar" aria-hidden="true">→</div>
-    <div class="mv live"><span class="when">Late Aug</span><h4>Live Firebase PWA</h4><p>Public launch</p></div>
+    <div class="mv live"><h4>Live Firebase PWA</h4><p>Public launch</p></div>
   </div>
 
+  <p class="label bare kr">Key results</p>
   <div class="proof3">
     <div><b class="hl">4 MVPs</b><p>Each version shaped by my own daily use and beta feedback</p><span class="fn">Versions tested before the public release</span></div>
     <div><b>Live PWA</b><p>Google sign-in · sync · push notifications</p></div>
     <div><b>Independent</b><p>Problem → product → build → launch</p></div>
   </div>
 
-  <p class="label" style="margin-top:48px">How I make product decisions</p>
-  <div class="decisions d2" style="margin-top:4px">
+  <p class="label" style="margin-top:72px">How I make product decisions</p>
+  <div class="decisions d2 lite" style="margin-top:4px">
     <div class="dc"><span class="dn">01</span><h4>Importance sets the complexity ceiling</h4><p>Non-core features stay as simple as possible: one less condition is one less future bug.</p></div>
     <div class="dc"><span class="dn">02</span><h4>Technical constraints become product decisions</h4><p>When a technical limit appears, I go back to the core problem and look for a simpler way around it.</p></div>
   </div>
 
-  <div class="own"><p class="own-h">My role</p><ul><li><b>Solo builder:</b> owned the product from start to finish</li><li><b>Product planning:</b> problem definition, PRD and a three-phase roadmap</li><li><b>Design:</b> flows, interface and copy</li><li><b>Development:</b> built with AI-assisted development</li><li><b>Launch and iteration:</b> public release, user feedback and updates</li></ul></div>
+  <div class="own"><p class="own-h">My contribution</p><ul><li><b>Solo builder:</b> owned the product from start to finish</li><li><b>Product planning:</b> problem definition, PRD and a three-phase roadmap</li><li><b>Design:</b> flows, interface and copy</li><li><b>Development:</b> built with AI-assisted development</li><li><b>Launch and iteration:</b> public release, user feedback and updates</li></ul></div>
 
   <details class="deep">
     <summary>
