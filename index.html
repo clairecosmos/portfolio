@@ -818,6 +818,30 @@ details.deep > summary .cta{background:var(--ink);color:var(--card)}
 /* ===== v18: outlined try button ===== */
 .trylink{background:var(--card);color:var(--olive);border:1.5px solid var(--olive);margin-top:20px}
 .trylink:hover{opacity:1;background:var(--sage)}
+/* ===== v19: P4 what it is, steps next to a phone recording ===== */
+.wi{display:grid;grid-template-columns:minmax(0,440px) 300px;justify-content:start;gap:72px;align-items:center;margin-top:8px}
+.wi-steps{list-style:none;margin:0;padding:0;counter-reset:wi}
+.wi-steps li{counter-increment:wi;position:relative;margin:0;padding:0 0 34px 46px;display:flex;flex-direction:column;gap:4px}
+.wi-steps li::before{content:counter(wi);position:absolute;left:0;top:0;width:28px;height:28px;border-radius:50%;background:var(--olive);color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.wi-steps li::after{content:"";position:absolute;left:13px;top:34px;bottom:6px;border-left:2px solid var(--line)}
+.wi-steps li:last-child{padding-bottom:0}
+.wi-steps li:last-child::after{display:none}
+.wi-steps b{font-size:17px;color:var(--ink);line-height:1.3;padding-top:3px}
+.wi-steps span{font-size:15px;max-width:46ch}
+.phone{margin:0;display:flex;flex-direction:column;align-items:center;gap:12px}
+.phone-shell{position:relative;width:100%;aspect-ratio:400/767}
+.phone-screen{position:absolute;left:10.75%;top:5.85%;width:78.5%;height:88.4%;object-fit:cover;background:#000;display:block;cursor:pointer}
+.phone-frame{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.phone figcaption{font-size:13px;color:var(--muted);text-align:center;margin-top:-12px}
+@media (max-width:900px){.wi{grid-template-columns:1fr;gap:36px}.phone{width:240px;margin:0 auto}}
+/* ===== v20: P4 features as a 2x2 image grid ===== */
+.feat4{display:grid;grid-template-columns:1fr 1fr;gap:36px 24px;margin-top:4px}
+.feat4 figure{margin:0;display:flex;flex-direction:column;gap:12px;min-width:0}
+.feat4 img{display:block;width:100%;height:auto;border-radius:6px;border:1px solid var(--line);background:#fff}
+.feat4 figcaption{display:flex;flex-direction:column;gap:2px}
+.feat4 b{font-size:15.5px;color:var(--ink);font-weight:650}
+.feat4 span{font-size:14px}
+@media (max-width:680px){.feat4{grid-template-columns:1fr;gap:28px}}
 </style>
 </head>
 <body>
@@ -1309,6 +1333,23 @@ details.deep > summary .cta{background:var(--ink);color:var(--card)}
     <div class="mv live"><h4>Live Firebase PWA</h4><p>Public launch</p></div>
   </div>
 
+  <p class="label" style="margin-top:72px">What it is</p>
+  <div class="wi">
+    <ol class="wi-steps">
+      <li><b>Starting state</b><span>Rate your body, mood and mind, and notice the needs that are easy to ignore</span></li>
+      <li><b>Today’s pace</b><span>60, 80 or 120, one small task, or go with the flow; change it any time of day</span></li>
+      <li><b>Daily checklist</b><span>Today’s key to-dos as a checklist that stays when your pace changes</span></li>
+      <li><b>A line to yourself</b><span>One sentence a day, to read again later</span></li>
+    </ol>
+    <figure class="phone">
+      <div class="phone-shell">
+        <video class="phone-screen" src="assets/video/p4-checkin-flow.mp4" poster="assets/img/p4-checkin-poster.jpg" muted loop playsinline preload="metadata" data-autoplay aria-label="Screen recording of a full morning check-in, sped up"></video>
+        <img class="phone-frame" src="assets/img/phone-frame.png" alt="" aria-hidden="true">
+      </div>
+      <figcaption>A full morning check-in, sped up</figcaption>
+    </figure>
+  </div>
+
   <p class="label bare kr">Key results</p>
   <div class="proof3">
     <div><b class="hl">4 MVPs</b><p>Each version shaped by my own daily use and beta feedback</p><span class="fn">Versions tested before the public release</span></div>
@@ -1328,25 +1369,17 @@ details.deep > summary .cta{background:var(--ink);color:var(--card)}
     <summary>
       <span class="sum-title">Track 1: Product planning</span>
       <span class="sum-desc">What I built and why: the features, how I checked it worked, and the decisions that shaped it.</span>
-      <span class="chips"><span>What it is</span><span>Validate</span><span>Prioritize</span><span>Trade-offs</span><span>Learn &amp; adjust</span></span>
+      <span class="chips"><span>Around it</span><span>Validate</span><span>Prioritize</span><span>Trade-offs</span><span>Learn &amp; adjust</span></span>
       <span class="cta"><span class="pm" aria-hidden="true">+</span><span class="cta-t">See the full details</span></span>
     </summary>
-    <nav class="lnav" aria-label="Sections in this case"><a href="#p4-what">What it is</a><a href="#p4-validate">Validate</a><a href="#p4-prioritize">Prioritize</a><a href="#p4-tradeoffs">Trade-offs</a><a href="#p4-learn">Learn &amp; adjust</a></nav>
+    <nav class="lnav" aria-label="Sections in this case"><a href="#p4-what">Around it</a><a href="#p4-validate">Validate</a><a href="#p4-prioritize">Prioritize</a><a href="#p4-tradeoffs">Trade-offs</a><a href="#p4-learn">Learn &amp; adjust</a></nav>
     <div id="p4-what" class="whatis" style="margin-top:8px">
-      <p class="label">What it is</p>
-      <p class="fh-g">The morning check-in</p>
-      <div class="fh">
-        <div><b>Starting state</b><span>Rate your body, mood and mind, and notice the needs that are easy to ignore</span></div>
-        <div><b>Today’s pace</b><span>60, 80 or 120, one small task, or go with the flow; change it any time of day</span></div>
-        <div><b>Daily checklist</b><span>Today’s key to-dos as a checklist that stays when your pace changes</span></div>
-        <div><b>A line to yourself</b><span>One sentence a day, to read again later</span></div>
-      </div>
-      <p class="fh-g">Around it</p>
-      <div class="fh">
-        <div><b>Push notifications</b><span>System notifications as a PWA, at a reminder time you set</span></div>
-        <div><b>Data overview</b><span>Look back at past check-ins and see how each day differed</span></div>
-        <div><b>Import and export</b><span>Back up or move your records any time</span></div>
-        <div><b>Sync across devices</b><span>Sign in with Google and pick up your records on phone or computer</span></div>
+      <p class="label">Around it</p>
+      <div class="feat4">
+        <figure><img src="assets/img/p4-feature-notifications.webp" width="1200" height="675" loading="lazy" alt="A morning reminder on a phone lock screen, next to the sign-in and check-in screens"><figcaption><b>Push notifications</b><span>System notifications as a PWA, at a reminder time you set</span></figcaption></figure>
+        <figure><img src="assets/img/p4-feature-overview.webp" width="1200" height="675" loading="lazy" alt="The overview with weekly averages, a list of daily records and one day's details enlarged"><figcaption><b>Data overview</b><span>Look back at past check-ins and see how each day differed</span></figcaption></figure>
+        <figure><img src="assets/img/p4-feature-export.webp" width="1200" height="675" loading="lazy" alt="Settings with CSV export and CSV or JSON import, next to the exported log in a spreadsheet"><figcaption><b>Import and export</b><span>Back up or move your records any time</span></figcaption></figure>
+        <figure><img src="assets/img/p4-feature-sync.webp" width="1200" height="675" loading="lazy" alt="The same check-in on a phone and a desktop, synced through Google sign-in"><figcaption><b>Sync across devices</b><span>Sign in with Google and pick up your records on phone or computer</span></figcaption></figure>
       </div>
     </div>
     <div class="areas">
@@ -1528,6 +1561,12 @@ document.querySelectorAll('details.deep').forEach(function(d){
     });
   },{threshold:0.4});
   vids.forEach(function(v){ io.observe(v); });
+})();
+
+(function(){
+  document.querySelectorAll('.phone video').forEach(function(v){
+    v.addEventListener('click',function(){ if(v.paused){ var p=v.play(); if(p&&p.catch) p.catch(function(){}); } else { v.pause(); } });
+  });
 })();
 
 (function(){
