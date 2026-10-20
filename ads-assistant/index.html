@@ -1,0 +1,587 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ads Assistant Prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: workplace-messenger shell — sidebar | conversation | behind-the-scenes rail; stacks on phones */
+:root{
+  --bg:#eef1f5;--surface:#ffffff;--surface-2:#f6f7fa;--line:#dde2ea;--fg:#1b2230;--muted:#5a6475;--faint:#8a93a3;
+  --accent:#0f6e6a;--accent-bg:#e2f1f0;--on-accent:#ffffff;
+  --ai:#2c62c4;--ai-bg:#e7eefb;--rule:#b9541f;--rule-bg:#fbeadf;
+  --good:#1d7444;--good-bg:#e2f2e8;--warn:#8f5d00;--warn-bg:#fbf0d8;--bad:#b42318;--bad-bg:#fbe6e3;
+  --side:#1d2633;--side-fg:#d6dce6;--side-muted:#8d98aa;--side-active:#2c3a4d;
+  --shade:rgba(15,22,32,.45);
+  --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#11151c;--surface:#192029;--surface-2:#1f2732;--line:#2d3644;--fg:#e5e9ef;--muted:#a0a9b8;--faint:#77818f;
+  --accent:#4cb3ab;--accent-bg:#173331;--on-accent:#0c1a19;
+  --ai:#82a9ef;--ai-bg:#1c2940;--rule:#ee9363;--rule-bg:#3a2317;
+  --good:#63cf92;--good-bg:#16301f;--warn:#e8b75c;--warn-bg:#34280f;--bad:#f2907f;--bad-bg:#3b1b17;
+  --side:#0d1117;--side-fg:#d6dce6;--side-muted:#7f8a9c;--side-active:#202b3a;--shade:rgba(0,0,0,.6);color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#11151c;--surface:#192029;--surface-2:#1f2732;--line:#2d3644;--fg:#e5e9ef;--muted:#a0a9b8;--faint:#77818f;
+  --accent:#4cb3ab;--accent-bg:#173331;--on-accent:#0c1a19;
+  --ai:#82a9ef;--ai-bg:#1c2940;--rule:#ee9363;--rule-bg:#3a2317;
+  --good:#63cf92;--good-bg:#16301f;--warn:#e8b75c;--warn-bg:#34280f;--bad:#f2907f;--bad-bg:#3b1b17;
+  --side:#0d1117;--side-fg:#d6dce6;--side-muted:#7f8a9c;--side-active:#202b3a;--shade:rgba(0,0,0,.6);color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{height:100%}
+body{background:var(--bg);color:var(--fg);font:14px/1.5 var(--sans);margin:0;display:flex;flex-direction:column}
+button,input,textarea,select{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.strip{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;justify-content:space-between;padding-block:8px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));background:var(--surface);border-bottom:1px solid var(--line);font-size:12.5px;color:var(--muted)}
+.strip b{color:var(--fg);font-weight:600}
+.strip-actions{display:flex;gap:8px}
+.btn{border:1px solid var(--line);background:var(--surface);border-radius:6px;padding:5px 10px;font-size:13px}
+.btn:hover{background:var(--surface-2)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent);font-weight:500}
+.btn.primary:hover{filter:brightness(1.06)}
+.btn[aria-pressed="true"]{background:var(--accent-bg);border-color:var(--accent);color:var(--accent)}
+.app{display:grid;grid-template-columns:220px minmax(0,1fr) 340px;grid-template-rows:minmax(0,1fr);flex:1 1 0;min-height:0}
+.app.no-rail{grid-template-columns:220px minmax(0,1fr)}
+.app.no-rail .rail{display:none}
+.side{background:var(--side);color:var(--side-fg);padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.ws{font-weight:600;font-size:15px;padding:4px 8px 12px;color:var(--side-fg)}
+.ws small{display:block;font-weight:400;font-size:12px;color:var(--side-muted)}
+.side h3{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--side-muted);margin:12px 8px 4px;font-weight:500}
+.nav{display:flex;align-items:center;gap:8px;width:100%;text-align:left;border:0;background:transparent;color:var(--side-fg);padding:6px 8px;border-radius:6px;font-size:14px}
+.nav:hover{background:var(--side-active)}
+.nav[aria-current="page"]{background:var(--side-active);font-weight:500}
+.nav .count{margin-left:auto;background:var(--rule);color:#fff;border-radius:9px;font-size:11px;padding:0 6px;min-width:18px;text-align:center}
+.nav .count[hidden]{display:none}
+.dotbot{width:20px;height:20px;border-radius:5px;background:var(--accent);color:var(--on-accent);display:grid;place-items:center;font-size:11px;font-weight:600}
+.hash{width:20px;text-align:center;color:var(--side-muted)}
+.me{margin-top:auto;padding:10px 8px 2px;border-top:1px solid var(--side-active);font-size:12.5px;color:var(--side-muted)}
+.me b{color:var(--side-fg);font-weight:500;display:block}
+.main{display:flex;flex-direction:column;min-width:0;min-height:0;background:var(--surface);border-right:1px solid var(--line)}
+.view{display:flex;flex-direction:column;min-height:0;flex:1}
+.vhead{display:flex;align-items:center;gap:10px;padding:12px 20px;border-bottom:1px solid var(--line)}
+.vhead h1{font-size:16px;margin:0;font-weight:600}
+.vhead p{margin:0;color:var(--muted);font-size:12.5px}
+.feed{flex:1;overflow-y:auto;padding:18px 20px 24px;display:flex;flex-direction:column;gap:16px}
+.composer{border-top:1px solid var(--line);padding:12px 20px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.locked{flex:1;min-width:180px;border:1px dashed var(--line);border-radius:8px;padding:8px 12px;color:var(--faint);font-size:13px}
+.msg{display:grid;grid-template-columns:36px minmax(0,1fr);gap:10px}
+.av{width:36px;height:36px;border-radius:8px;display:grid;place-items:center;font-weight:600;font-size:13px}
+.av.bot{background:var(--accent);color:var(--on-accent)}
+.av.user{background:var(--surface-2);border:1px solid var(--line);color:var(--muted)}
+.who{font-weight:600;font-size:14px}
+.who span{font-weight:400;color:var(--faint);font-size:12px;margin-left:6px}
+.who .tag{font-size:11px;border:1px solid var(--line);border-radius:4px;padding:0 5px;color:var(--muted);margin-left:6px}
+.card{border:1px solid var(--line);border-radius:10px;background:var(--surface);margin-top:6px;overflow:hidden}
+.card .sec{padding:12px 14px;border-top:1px solid var(--line)}
+.card .sec:first-child{border-top:0}
+.sec h4{margin:0 0 8px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.guide ol{margin:0;padding-left:18px;display:grid;gap:4px}
+.subm dl{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;margin:0}
+.subm dt{color:var(--muted);font-size:12.5px}
+.subm dd{margin:0}
+.verbatim{font-family:var(--mono);font-size:12.5px;background:var(--surface-2);border-radius:6px;padding:6px 8px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{display:inline-flex;gap:6px;align-items:center;font-size:12.5px;border-radius:999px;padding:3px 10px;border:1px solid transparent}
+.chip b{font-weight:500}
+.chip.above{background:var(--good-bg);color:var(--good)}
+.chip.par{background:var(--surface-2);color:var(--muted);border-color:var(--line)}
+.chip.needs{background:var(--bad-bg);color:var(--bad)}
+.legend{font-size:12px;color:var(--faint);margin-top:6px}
+.summary{font-size:14px;line-height:1.6;max-width:68ch;margin:0}
+.prod{display:grid;gap:8px;padding:10px 0;border-top:1px dashed var(--line)}
+.prod:first-of-type{border-top:0;padding-top:0}
+.prod-head{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:baseline}
+.pid{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.ptitle{font-weight:500}
+.share{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.obs{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 10px;align-items:start}
+.asp{font-size:11px;border-radius:4px;padding:1px 6px;background:var(--ai-bg);color:var(--ai);white-space:nowrap;margin-top:2px}
+.q{display:block;font-family:var(--mono);font-size:12px;color:var(--muted);border-left:2px solid var(--line);padding-left:8px;margin-bottom:2px}
+.list{margin:0;padding-left:18px;display:grid;gap:4px}
+.pb{font-family:var(--mono);font-size:11.5px;color:var(--faint);margin-right:4px}
+.foot{display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:var(--surface-2)}
+.foot .note{font-size:12px;color:var(--faint);margin-right:auto}
+.fb-form{display:grid;gap:8px;width:100%}
+.fb-form textarea{width:100%;min-height:60px;border:1px solid var(--line);border-radius:6px;padding:8px;background:var(--surface)}
+.pill{display:inline-flex;align-items:center;gap:4px;font-size:11.5px;border-radius:4px;padding:1px 7px;font-weight:500}
+.pill.rule{background:var(--rule-bg);color:var(--rule)}
+.pill.ai{background:var(--ai-bg);color:var(--ai)}
+.pill.out{background:var(--surface-2);color:var(--muted);border:1px solid var(--line)}
+.pill.warn{background:var(--warn-bg);color:var(--warn)}
+.pill.bad{background:var(--bad-bg);color:var(--bad)}
+.pill.good{background:var(--good-bg);color:var(--good)}
+.typing{color:var(--muted);font-size:13px}
+.typing i{display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--faint);margin-left:3px;animation:b 1s infinite}
+.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+@keyframes b{0%,80%,100%{opacity:.25}40%{opacity:1}}
+.empty{color:var(--muted);border:1px dashed var(--line);border-radius:10px;padding:16px;max-width:60ch}
+.thread{margin:10px 0 0 14px;padding-left:14px;border-left:2px solid var(--line)}
+.av.team{background:var(--rule-bg);color:var(--rule)}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:13px;min-width:720px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:500;background:var(--surface-2)}
+td.mono{font-family:var(--mono);font-size:12px;font-variant-numeric:tabular-nums}
+.rail{background:var(--surface-2);overflow-y:auto;padding:16px}
+.rail h2{font-size:14px;margin:0 0 2px}
+.rail .lead{font-size:12.5px;color:var(--muted);margin:0 0 12px}
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.step{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:8px 10px;display:grid;gap:3px;transition:opacity .2s,border-color .2s}
+.step .top{display:flex;align-items:center;gap:8px}
+.step .name{font-weight:500;font-size:13px}
+.step .st{margin-left:auto;font-size:11.5px;color:var(--faint)}
+.step .detail{font-size:12px;color:var(--muted)}
+.step[data-state="idle"]{opacity:.55}
+.step[data-state="running"]{border-color:var(--accent)}
+.step[data-state="running"] .st{color:var(--accent)}
+.step[data-state="done"] .st{color:var(--good)}
+.step[data-state="skipped"]{opacity:.6;background:var(--surface-2)}
+.step[data-state="skipped"] .name{text-decoration:line-through;text-decoration-color:var(--faint)}
+.step[data-state="flag"]{border-color:var(--rule)}
+.step[data-state="flag"] .st{color:var(--rule);font-weight:500}
+.rail .key{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0 0;font-size:12px;color:var(--muted);align-items:center}
+.overlay{position:fixed;inset:0;background:var(--shade);display:grid;place-items:center;padding:16px;z-index:20}
+.modal{background:var(--surface);border-radius:12px;border:1px solid var(--line);width:min(520px,100%);max-height:calc(100% - 32px);overflow-y:auto}
+.modal header{padding:16px 18px 6px;display:flex;align-items:start;gap:10px}
+.modal header h2{margin:0;font-size:17px}
+.modal header p{margin:2px 0 0;color:var(--muted);font-size:12.5px}
+.modal .x{margin-left:auto;border:0;background:transparent;font-size:20px;line-height:1;color:var(--muted);padding:2px 6px;border-radius:6px}
+.modal form{padding:8px 18px 16px;display:grid;gap:12px}
+.field{display:grid;gap:4px}
+.field label{font-weight:500;font-size:13px}
+.field .help{font-size:12px;color:var(--faint)}
+.field input,.field textarea{border:1px solid var(--line);border-radius:6px;padding:8px 10px;background:var(--surface);width:100%}
+.field textarea{min-height:96px;resize:vertical}
+.field input:focus,.field textarea:focus{border-color:var(--accent);outline:none;box-shadow:0 0 0 3px var(--accent-bg)}
+.err{color:var(--bad);font-size:12.5px}
+.modal .row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.demo{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--muted);margin-right:auto}
+.demo select{border:1px solid var(--line);border-radius:6px;padding:4px 6px;background:var(--surface);max-width:220px}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--fg);color:var(--bg);padding:8px 14px;border-radius:8px;font-size:13px;z-index:30}
+@media (max-width:980px){
+  body{display:block;height:auto}
+  .app,.app.no-rail{grid-template-columns:minmax(0,1fr);grid-template-rows:auto}
+  .feed{max-height:75vh}
+  .side{flex-direction:row;flex-wrap:wrap;align-items:center;padding:8px 16px}
+  .side h3,.me{display:none}
+  .ws{padding:4px 8px}
+  .nav{width:auto}
+  .main{border-right:0;min-height:70vh}
+  .rail{border-top:1px solid var(--line)}
+}
+@media (prefers-reduced-motion:reduce){.typing i{animation:none}.step{transition:none}}
+</style>
+</head>
+<body>
+
+<div class="strip">
+  <span><b>Prototype.</b> Synthetic shops and data. Analysis results come from real model runs on test cases, translated to English.</span>
+  <span class="strip-actions">
+    <button class="btn" id="railToggle" aria-pressed="true">Behind the scenes</button>
+    <button class="btn" id="resetBtn">Reset demo</button>
+  </span>
+</div>
+
+<div class="app" id="app">
+  <nav class="side" aria-label="Workspace">
+    <div class="ws">Marketplace Ops<small>Internal messenger</small></div>
+    <h3>Apps</h3>
+    <button class="nav" data-view="dm" aria-current="page"><span class="dotbot">A</span>Ads Assistant</button>
+    <h3>Channels</h3>
+    <button class="nav" data-view="channel"><span class="hash">#</span>ads-team-escalations<span class="count" id="chCount" hidden>0</span></button>
+    <h3>Records</h3>
+    <button class="nav" data-view="log"><span class="hash">▤</span>Question log<span class="count" id="logCount" hidden>0</span></button>
+    <div class="me"><b>Jessica Lin</b>Sales · 120 seller accounts</div>
+  </nav>
+
+  <main class="main">
+    <section class="view" id="view-dm" aria-label="Ads Assistant">
+      <div class="vhead"><span class="dotbot" style="width:28px;height:28px;font-size:13px">A</span><div><h1>Ads Assistant</h1><p>Turns a seller's ad question into a data-backed read for you</p></div></div>
+      <div class="feed" id="dmFeed" aria-live="polite"></div>
+      <div class="composer">
+        <div class="locked">Messages are off for this app. Use the form so every question goes through the same checks.</div>
+        <button class="btn primary" id="askBtn">Ask an ads question</button>
+      </div>
+    </section>
+    <section class="view" id="view-channel" aria-label="ads-team-escalations" hidden>
+      <div class="vhead"><span class="hash" style="font-size:18px;width:auto">#</span><div><h1>ads-team-escalations</h1><p>Questions the assistant hands to the ads team, with context attached</p></div></div>
+      <div class="feed" id="chFeed"></div>
+    </section>
+    <section class="view" id="view-log" aria-label="Question log" hidden>
+      <div class="vhead"><span class="hash" style="font-size:18px;width:auto">▤</span><div><h1>Question log</h1><p>One row per question. Also the evaluation dataset and the source of the churn-signal log.</p></div></div>
+      <div class="feed" id="logFeed"></div>
+    </section>
+  </main>
+
+  <aside class="rail" id="rail" aria-label="Behind the scenes">
+    <h2>Behind the scenes</h2>
+    <p class="lead" id="railLead">Rules run before and after AI. AI only reads the question and reviews listings.</p>
+    <ol class="steps" id="steps"></ol>
+    <div class="key"><span class="pill rule">Rule</span>fixed logic, no tokens <span class="pill ai">AI</span>language and judgment <span class="pill out">Output</span></div>
+  </aside>
+</div>
+
+<div class="overlay" id="overlay" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+    <header><div><h2 id="mTitle">Ask an ads question</h2><p>Paste the seller's words as they said them. Names and phone numbers are masked before AI sees them.</p></div><button class="x" id="closeM" aria-label="Close">×</button></header>
+    <form id="form" novalidate>
+      <div class="field"><label for="shopId">Shop ID</label><input id="shopId" inputmode="numeric" autocomplete="off" placeholder="521141723"><span class="err" id="shopErr" hidden></span></div>
+      <div class="field"><label for="question">Seller's question</label><textarea id="question" placeholder="Loads of clicks but nobody buys…"></textarea><span class="help">Verbatim is best. The assistant reads tone and assumptions too.</span><span class="err" id="qErr" hidden></span></div>
+      <div class="row">
+        <label class="demo" for="sample">Demo
+          <select id="sample"><option value="">Load a sample case</option></select>
+        </label>
+        <button type="button" class="btn" id="cancelM">Cancel</button>
+        <button type="submit" class="btn primary">Submit</button>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+const ST = {above:["above","Above category"], par:["par","On par"], needs:["needs","Needs improvement"]};
+const M = ["Impressions","CTR","Conversion rate","Avg. CPC","ROAS"];
+const PB = {
+  P09:"Keywords are too broad or weakly relevant",
+  P10:"High-spend or low-CTR keywords haven't been paused",
+  P11:"Match type settings need adjusting",
+  P12:"Product images or product name need improvement",
+  P16:"Product competitiveness has room to improve (reviews, offers, shipping time)",
+  P24:"Product selection and budget allocation need optimizing"
+};
+const ASP = {title:"Title", images:"Images", keyword_title:"Keyword–title fit", match_type:"Match type", description:"Description", reviews:"Reviews"};
+
+const CASES = {
+ "521141723":{label:"Opal Pantry · suspects fake traffic", shop:"Opal Pantry", cat:"Food & Beverages",
+  q:"Loads of clicks but nobody buys, and ROAS is only around 5. Is your system just sending me fake traffic?",
+  type:"Underperformance", route:"analyze", churn:false,
+  health:["above","above","needs","above","needs"],
+  summary:"Start with what's working: impressions, CTR and avg. CPC are all above category, so the ads are seen and shoppers are clicking. The problem comes after the click. Conversion rate and ROAS need improvement, mostly in OP-201, which takes half the spend. Its description is one line with no contents, shelf life or shipping time, and spec completeness is red. Reviews mention slow delivery, damp packs and an unclear expiry date, which may hold buyers back. OP-202 has reviews asking for the origin and storage instructions. On the seller's concern about traffic quality: clicks come from keywords that match the product, such as \"mixed nuts\" and \"daily nuts\", and they produce real orders. OP-203, in the same shop with a complete description, has an on-par conversion rate. Suggested checks: the OP-201 and OP-202 descriptions, shipping, and budget allocation across products.",
+  products:[
+   {id:"OP-201", title:"[Opal Pantry] Premium Mixed Nuts Snack Packs ×30 | Daily Nuts", share:"50%", note:"Conversion rate, ROAS need improvement", obs:[
+    ["description","Carefully selected assorted nuts. Healthy and tasty, one pack a day is just right.","The description doesn't state weight per pack or which nuts are included, and spec completeness is red. Shoppers who click may not get enough information."],
+    ["description","description length: red","Description length is red and shipping time isn't mentioned. Check whether to add shipping details."],
+    ["description","No idea when it expires","Shelf life and storage aren't in the description, and a review says the buyer doesn't know the expiry date. This may hold buyers back."],
+    ["reviews","Arrived much later than expected, waited almost two weeks","A review mentions slow delivery. Check recent shipping times."],
+    ["reviews","A few packs were damp and not crunchy","Together with the unclear expiry date, freshness and storage look like a recurring concern."]]},
+   {id:"OP-202", title:"Low-temp Roasted Plain Cashews 500g | Resealable Bag", share:"30%", note:"Conversion rate, ROAS need improvement", obs:[
+    ["description","Wish the origin were listed","The description doesn't state the origin, and a buyer asked for it in a review."],
+    ["description","Plain cashews, low-temperature roasted, resealable bag keeps them fresh.","The description is short, with no weight, ingredients or shipping time. Spec completeness is yellow."],
+    ["reviews","No storage instructions","Reviews point to missing info on storage and origin, which may be a recurring concern."]]},
+   {id:"OP-203", title:"Daily Nuts Gift Box 20-pc | Mid-Autumn Gift with Bag", share:"20%", note:"On par · not reviewed", obs:[]}],
+  checks:[["P16","OP-201"],["P24","OP-201"],["P16","OP-202"]],
+  ask:["How many days does OP-201 usually take to ship? Any recent delays?","Can OP-201's weight per pack, contents and shelf life be added to the description?","What is OP-202's origin and recommended storage? Can they be added to the description?"],
+  steps:{validate:"Shop 521141723 found · assigned to you", topseller:"Not on the list", fetch:"5 metrics vs category medians · top 3 by spend: OP-201 50%, OP-202 30%, OP-203 20% · personal data masked",
+   classify:"Underperformance · mentions clicks, orders, ROAS · assumption: \"fake traffic\" · churn signal: no",
+   route:"No escalation type, so analyze. OP-201 and OP-202: conversion needs improvement → review description and reviews. OP-203 on par → skip",
+   review:"8 observations, each tied to a rubric item and a quote", write:"3 checks from the playbook · 3 questions for the seller",
+   check:"Quotes found in source data · matches health check · no amounts, category figures or personal data", deliver:"Sent to you · logged"}},
+
+ "426652640":{label:"Cedar Bakery · blames ad placement", shop:"Cedar Bakery", cat:"Food & Beverages",
+  q:"Tons of people see my ads but nobody clicks. Did you put my ads in some terrible spot?",
+  type:"Underperformance", route:"analyze", churn:false,
+  health:["above","needs","par","above","above"],
+  summary:"Start with what's working: impressions, avg. CPC and ROAS are all above category, so the ads are seen and spend is paying back. The issue is CTR, and it's concentrated in CB-101, which takes half the spend. Its title leans on adjectives and doesn't state pack size or weight, and its image score is red with only 2 images, which may mean fewer shoppers click. On keywords, broad-match \"cookies\" has the highest spend at a 0.90% CTR, while exact-match \"butter cookies\" on the same product gets 3.36%. About the seller's concern over ad placement: we don't have placement data, but the same product's CTR varies a lot by keyword, and CB-103's CTR is on par, so keywords and the product page are the place to start. Suggested checks: CB-101's title and images, whether to adjust or pause the broad-match keywords, and whether CB-102's \"handmade cookie gift box\" matches how the product is named.",
+  products:[
+   {id:"CB-101", title:"Yummy Cookies | Afternoon Tea Must-have | Group-buy Favorite", share:"50%", note:"CTR needs improvement", obs:[
+    ["title","Yummy Cookies","The title opens with an adjective, so the selling point is vague. Check whether to state the flavor or what makes it special."],
+    ["title","Yummy Cookies | Afternoon Tea Must-have | Group-buy Favorite","No pack size or weight, and the title score is yellow. Check whether to add key specs."],
+    ["images","image score: red · 2 images","Only 2 images with a red score may reduce clicks after shoppers see the ad. Check image count and presentation."],
+    ["keyword_title","butter cookies","\"Butter\" from the top-CTR keyword doesn't appear in the title. Check whether the title can reflect the words shoppers respond to."],
+    ["match_type","cookies (broad)","Highest-spend keyword at 0.90% CTR, well below exact-match \"butter cookies\" at 3.36%. It may be bringing in less relevant impressions."],
+    ["match_type","afternoon tea (broad)","Second in spend at 1.04% CTR, also well below \"butter cookies\". Check whether the match type fits."]]},
+   {id:"CB-102", title:"Handmade Butter Shortbread 12-pc Gift Box | No Preservatives", share:"30%", note:"CTR needs improvement", obs:[
+    ["keyword_title","handmade cookie gift box","The title says \"shortbread\" but the keyword says \"cookie\". The wording may not match what some searchers expect."],
+    ["match_type","handmade cookie gift box (broad)","Highest spend at 1.40% CTR, well below exact-match \"butter shortbread\" at 3.05%."],
+    ["images","image score: green · 6 images","Images are probably not the first thing to check for this product."]]},
+   {id:"CB-103", title:"Earl Grey Butter Biscuits 10-pc | Afternoon Snack", share:"20%", note:"On par · not reviewed", obs:[]}],
+  checks:[["P12","CB-101"],["P11","CB-101"],["P10","CB-101"],["P09","CB-102"]],
+  ask:["How many pieces or grams are in a pack of CB-101? Can that go into the title?","CB-101 has only 2 product images. Are there more photos to add?","Why bid on broad terms like \"cookies\" and \"afternoon tea\"? Would the seller adjust the match type or pause the low-CTR keywords?"],
+  steps:{validate:"Shop 426652640 found · assigned to you", topseller:"Not on the list", fetch:"5 metrics vs category medians · top 3 by spend: CB-101 50%, CB-102 30%, CB-103 20% · personal data masked",
+   classify:"Underperformance · mentions impressions, clicks · assumption: \"terrible ad spot\" · churn signal: no",
+   route:"No escalation type, so analyze. CB-101 and CB-102: CTR needs improvement → review title, images, keyword–title fit, match type. CB-103 on par → skip",
+   review:"9 observations, each tied to a rubric item and a quote", write:"4 checks from the playbook · 3 questions for the seller",
+   check:"Quotes found in source data · matches health check · no amounts, category figures or personal data", deliver:"Sent to you · logged"}},
+
+ "308666344":{label:"Juniper Tech · nothing is wrong", shop:"Juniper Tech", cat:"Mobile & Gadgets",
+  q:"I still feel our ads aren't good enough. What else can we actually improve?",
+  type:"Underperformance", route:"analyze", churn:false,
+  health:["above","par","par","above","above"],
+  summary:"This shop is performing normally. Impressions, avg. CPC and ROAS are above category, so the ads are seen, clicks are cheap and spend is paying back. CTR and conversion rate are on par, so no metric needs improvement. The top 3 products by spend show the same pattern, and every listing score item is green, so there's nothing specific to flag this time. The seller didn't name a concern; they want to know what else can improve. Since the data shows no clear weak spot, ask what \"not good enough\" means to them, such as more orders, higher ROAS or more reach, before discussing changes.",
+  products:[
+   {id:"JT-301", title:"USB-C 65W GaN Fast Charger | 3 Ports, Laptop Ready", share:"50%", note:"On par or above · not reviewed", obs:[]},
+   {id:"JT-302", title:"MagSafe Magnetic Power Bank 5000mAh | Slim with Stand", share:"30%", note:"On par or above · not reviewed", obs:[]},
+   {id:"JT-303", title:"Braided USB-C to C Cable 1.5m | 60W, Pack of 2", share:"20%", note:"On par or above · not reviewed", obs:[]}],
+  checks:[], std:"Your ROAS and cost per click are better than most shops in your category, and your click and conversion rates are in line with them. Your ads are working. The next step is deciding what to grow: more orders, more reach or new products.",
+  ask:["When the seller says \"not good enough\", which direction do they mean: more reach and clicks, more orders, or higher ROAS?","Does the seller have a comparison point in mind, such as last month, an upcoming campaign or a specific number?","Is the seller planning to change the budget or add other products to ads?"],
+  steps:{validate:"Shop 308666344 found · assigned to you", topseller:"Not on the list", fetch:"5 metrics vs category medians · top 3 by spend: JT-301 50%, JT-302 30%, JT-303 20% · personal data masked",
+   classify:"Underperformance · no metric named · churn signal: no",
+   route:"No escalation type, so analyze. No metric needs improvement → no listing aspects assigned",
+   review:"Nothing assigned to review", reviewSkip:true, write:"Highlights and 3 questions for the seller · no checks needed",
+   check:"Matches health check · no invented problems · no amounts or personal data", deliver:"Sent to you · logged"}},
+
+ "264760198":{label:"Mochi Studio · billing + budget cut", shop:"Mochi Studio", cat:"Home & Living",
+  q:"ROAS has been terrible. I'm cutting next month's budget in half. Also, I still haven't received last month's ad invoice.",
+  type:"Billing issue + Underperformance", route:"billing", churn:"I'm cutting next month's budget in half",
+  health:["par","par","needs","par","needs"],
+  steps:{validate:"Shop 264760198 found · assigned to you", topseller:"Not on the list", fetch:"Health check pulled for the hand-off · personal data masked",
+   classify:"Underperformance + billing issue · churn signal: yes, \"I'm cutting next month's budget in half\"",
+   route:"Billing issue → escalate. One part needs a person, so the whole message goes", routeFlag:true,
+   review:"Skipped · escalated", reviewSkip:true, write:"Skipped · escalated", writeSkip:true, check:"Skipped · no AI-written content", checkSkip:true,
+   deliver:"Sent to #ads-team-escalations · marked priority · added to churn-signal log"}},
+
+ "39602162":{label:"Pebble Tea House · wants a number", shop:"Pebble Tea House", cat:"Food & Beverages",
+  q:"If we scale up, how much should we spend a month? Just give me a number, skip the lecture.",
+  type:"Budget & scaling", route:"budget", churn:false,
+  health:["par","par","above","par","above"],
+  steps:{validate:"Shop 39602162 found · assigned to you", topseller:"Not on the list", fetch:"5 metrics vs category medians · personal data masked",
+   classify:"Budget & scaling · asks for a specific amount · churn signal: no",
+   route:"Budget question → standard answer from rules. ROAS above category → room to scale",
+   review:"Not needed", reviewSkip:true, write:"Not needed · answer comes from rules", writeSkip:true, check:"No AI-written content to check", checkSkip:true,
+   deliver:"Sent to you · logged"}},
+
+ "254135973":{label:"Hinoki Mobile · top seller", shop:"Hinoki Mobile", cat:"Mobile & Gadgets",
+  q:"Are our ads really bad? Are we way behind others in our category?",
+  type:"Not classified", route:"topseller", churn:false,
+  health:["above","needs","above","above","above"],
+  steps:{validate:"Shop 254135973 found · assigned to you", topseller:"On the list → goes to the ads team before any AI call", topFlag:true,
+   fetch:"Health check pulled for the hand-off", classify:"AI not called", classifySkip:true,
+   route:"Top seller → escalate", routeFlag:true, review:"AI not called", reviewSkip:true, write:"AI not called", writeSkip:true, check:"Nothing to check", checkSkip:true,
+   deliver:"Sent to #ads-team-escalations · logged"}}
+};
+
+const STEPS = [
+ ["validate","rule","Check form and access"],["topseller","rule","Check top-seller list"],["fetch","rule","Pull health check and top 3 products"],
+ ["classify","ai","Classify the question"],["route","rule","Route and pick what to review"],["review","ai","Review listings against the rubric"],
+ ["write","ai","Write the read for Sales"],["check","rule","Validate AI output"],["deliver","out","Deliver and log"]];
+const KIND = {rule:["rule","Rule"],ai:["ai","AI"],out:["out","Output"]};
+
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const wait = ms => new Promise(r => setTimeout(r, reduce ? 80 : ms));
+const now = () => new Date().toLocaleTimeString([], {hour:"2-digit", minute:"2-digit"});
+/* When embedded in the portfolio, scroll only the chat feed so the host page never jumps */
+const embedded = window.self !== window.top;
+function follow(n, smooth){
+  const b = smooth && !reduce ? "smooth" : "auto";
+  if (!embedded){ n.scrollIntoView({block:"end", behavior:b}); return; }
+  const f = n.closest(".feed"); if (f) f.scrollTo({top:f.scrollHeight, behavior:b});
+}
+let busy = false, logRows = [], chN = 0, seq = 0, standardAdded = false;
+
+function renderSteps(){
+  $("#steps").innerHTML = STEPS.map(([id,k,name]) =>
+    `<li class="step" id="st-${id}" data-state="idle"><div class="top"><span class="pill ${KIND[k][0]}">${KIND[k][1]}</span><span class="name">${name}</span><span class="st">Waiting</span></div><div class="detail" hidden></div></li>`).join("");
+}
+function setStep(id, state, detail){
+  const el = $("#st-"+id); el.dataset.state = state;
+  el.querySelector(".st").textContent = {running:"Running",done:"Done",skipped:"Skipped",flag:"Escalate",idle:"Waiting"}[state];
+  const d = el.querySelector(".detail"); if (detail){ d.textContent = detail; d.hidden = false; }
+}
+function chips(h){
+  return `<div class="chips">${h.map((s,i)=>`<span class="chip ${ST[s][0]}"><b>${M[i]}</b>${ST[s][1]}</span>`).join("")}</div>`;
+}
+function botMsg(html, tag){
+  const n = document.createElement("div"); n.className = "msg";
+  n.innerHTML = `<div class="av bot">A</div><div><div class="who">Ads Assistant${tag?`<span class="tag">${tag}</span>`:""}<span>${now()}</span></div>${html}</div>`;
+  $("#dmFeed").appendChild(n); follow(n, true); return n;
+}
+function userMsg(id, q){
+  const n = document.createElement("div"); n.className = "msg";
+  n.innerHTML = `<div class="av user">JL</div><div><div class="who">Jessica Lin<span>${now()}</span></div><div class="card subm"><div class="sec"><dl><dt>Shop ID</dt><dd class="pid">${esc(id)}</dd><dt>Seller said</dt><dd><div class="verbatim">${esc(q)}</div></dd></dl></div></div></div>`;
+  $("#dmFeed").appendChild(n); follow(n, false);
+}
+function welcome(){
+  $("#dmFeed").innerHTML = "";
+  botMsg(`<div class="card guide"><div class="sec"><h4>How it works</h4><ol>
+   <li>Press <b>Ask an ads question</b> and paste the seller's words with their shop ID.</li>
+   <li>Rules pull the shop's ads and sales data and the top 3 products by ad spend. AI reads the question and reviews those listings.</li>
+   <li>You get a read you can use on the call. Billing, ad feature bugs and top sellers go straight to the ads team.</li></ol></div>
+   <div class="sec"><h4>What you won't get</h4><ul class="list"><li>Bid amounts or category figures</li><li>A reply to paste to the seller as-is. The read is for you.</li></ul></div></div>`);
+}
+
+function resultCard(c, key){
+  const prods = c.products.map(p => `<div class="prod"><div class="prod-head"><span class="pid">${p.id}</span><span class="ptitle">${esc(p.title)}</span><span class="share">${p.share} of ad spend · ${p.note}</span></div>
+    ${p.obs.length ? `<div class="obs">${p.obs.map(o=>`<span class="asp">${ASP[o[0]]}</span><div><span class="q">“${esc(o[1])}”</span>${esc(o[2])}</div>`).join("")}</div>` : ""}</div>`).join("");
+  const checks = c.checks.length ? `<ul class="list">${c.checks.map(x=>`<li><span class="pb">${x[0]}</span>${PB[x[0]]} <span class="share">· ${x[1]}</span></li>`).join("")}</ul>` : `<p class="summary" style="color:var(--muted)">No checks needed. Nothing in the data needs improvement.</p>`;
+  return `<div class="card">
+   <div class="sec"><h4>${esc(c.shop)} · ${esc(c.cat)} · Ads and shop health check</h4>${chips(c.health)}<div class="legend">Compared with the category median last month. Category figures are never shown.</div></div>
+   <div class="sec"><h4>The read</h4><p class="summary">${esc(c.summary)}</p></div>
+   ${c.std && standardAdded ? `<div class="sec"><h4>What you can tell the seller · standard answer</h4><p class="summary">“${esc(c.std)}”</p><div class="legend">Added by the ads team after Sales feedback. Comes from rules, not AI, and never quotes category figures.</div></div>` : ""}
+   <div class="sec"><h4>Top 3 products by ad spend</h4>${prods}</div>
+   <div class="sec"><h4>Suggested checks · optimization playbook</h4>${checks}</div>
+   <div class="sec"><h4>Ask the seller</h4><ul class="list">${c.ask.map(a=>`<li>${esc(a)}</li>`).join("")}</ul></div>
+   <div class="sec foot" id="fb-${key}"><span class="note">AI-reviewed, checked by rules. Every observation quotes the source.</span>
+     <button class="btn" data-fb="up" data-k="${key}">Helpful</button><button class="btn" data-fb="down" data-k="${key}">Not helpful, send to ads team</button></div>
+  </div>`;
+}
+
+function budgetCard(c, key){
+  return `<div class="card">
+   <div class="sec"><h4>${esc(c.shop)} · ${esc(c.cat)} · Ads and shop health check</h4>${chips(c.health)}</div>
+   <div class="sec"><h4>Budget guidance · standard answer</h4><p class="summary"><span class="pill good">Room to scale</span> ROAS and conversion rate are above category.</p>
+    <ul class="list" style="margin-top:8px"><li>Mega-sale days: set 2 to 5 times the regular daily budget.</li><li>Strong products: start at 1.5 times the current budget, review after a week, then decide whether to add more.</li></ul>
+    <div class="legend">The assistant doesn't calculate amounts. These multipliers are the ads team's standard guidance.</div></div>
+   <div class="sec foot" id="fb-${key}"><span class="note">Answered by rules. No AI analysis.</span>
+     <button class="btn" data-fb="up" data-k="${key}">Helpful</button><button class="btn" data-fb="down" data-k="${key}">Not helpful, send to ads team</button></div>
+  </div>`;
+}
+
+function postChannel(c, id, reason, extra){
+  chN++; const cnt = $("#chCount"); cnt.textContent = chN; cnt.hidden = false;
+  const e = $("#chFeed").querySelector(".empty"); if (e) e.remove();
+  const n = document.createElement("div"); n.className = "msg";
+  n.innerHTML = `<div class="av bot">A</div><div><div class="who">Ads Assistant<span class="tag">for Jessica Lin</span><span>${now()}</span></div>
+   <div class="card"><div class="sec"><div class="chips" style="margin-bottom:8px">${reason}</div>
+   <dl class="subm" style="display:grid;grid-template-columns:auto 1fr;gap:4px 12px;margin:0"><dt>Shop</dt><dd>${esc(c.shop)} <span class="pid">${id}</span> · ${esc(c.cat)}</dd><dt>Seller said</dt><dd><div class="verbatim">${esc(c.q)}</div></dd>${extra||""}</dl></div>
+   <div class="sec"><h4>Health check</h4>${chips(c.health)}</div>
+   <div class="sec foot"><span class="note">Reply in this thread. Jessica sees it in Ads Assistant.</span></div></div></div>`;
+  $("#chFeed").appendChild(n);
+  return n;
+}
+
+function addLog(id, c, route, fb){
+  const row = {t:now(), id, type:c.type, route, fb:fb||"Pending", churn: c.churn ? "Yes" : "No", k: ++seq};
+  logRows.push(row); renderLog(); return row;
+}
+function renderLog(){
+  const lc = $("#logCount"); lc.textContent = logRows.length; lc.hidden = !logRows.length;
+  $("#logFeed").innerHTML = logRows.length ? `<div class="tablewrap"><table><thead><tr><th>Time</th><th>Sales</th><th>Shop ID</th><th>Question type</th><th>Route</th><th>Feedback</th><th>Churn signal</th></tr></thead><tbody>${
+    logRows.slice().reverse().map(r=>`<tr><td class="mono">${r.t}</td><td>Jessica Lin</td><td class="mono">${r.id}</td><td>${r.type}</td><td>${r.route}</td><td>${esc(r.fb)}</td><td>${r.churn==="Yes"?'<span class="pill warn">Yes</span>':"No"}</td></tr>`).join("")}</tbody></table></div>`
+    : `<div class="empty">Each question lands here: who asked, which shop, the question type, how it was routed, the feedback and whether the seller signalled churn.</div>`;
+}
+
+async function run(id, q){
+  busy = true; $("#askBtn").disabled = true;
+  const c = CASES[id]; renderSteps();
+  $("#railLead").textContent = `Running for ${c.shop}.`;
+  userMsg(id, q);
+  const typing = botMsg(`<div class="typing">Checking the shop<i></i><i></i><i></i></div>`);
+  let s = c.steps;
+  if (c.std && standardAdded) s = Object.assign({}, s, {route: s.route + ". Standard answer from the ads team matches this pattern and is attached"});
+  const plan = STEPS.map(([k]) => {
+    if (s[k+"Skip"]) return [k,"skipped"];
+    if ((k==="topseller" && s.topFlag) || (k==="route" && s.routeFlag)) return [k,"flag"];
+    return [k,"done"];
+  });
+  for (const [k,state] of plan){
+    if (state === "skipped"){ setStep(k,"skipped",s[k]); await wait(260); continue; }
+    setStep(k,"running");
+    typing.querySelector(".typing").firstChild.textContent = {validate:"Checking the form",topseller:"Checking the top-seller list",fetch:"Pulling shop data",classify:"Reading the question",route:"Routing",review:"Reviewing listings",write:"Writing your read",check:"Checking the output",deliver:"Delivering"}[k];
+    await wait(k==="review"||k==="write"||k==="classify" ? 1100 : 650);
+    setStep(k,state,s[k]);
+  }
+  typing.remove();
+  const key = "r"+(seq+1);
+  if (c.route === "analyze"){
+    botMsg(resultCard(c,key), "AI + rules"); addLog(id,c,"Answered");
+  } else if (c.route === "budget"){
+    botMsg(budgetCard(c,key), "Rules only"); addLog(id,c,"Answered by rules");
+  } else if (c.route === "billing"){
+    botMsg(`<div class="card"><div class="sec"><p class="summary">Billing questions go to a person, so this one is with the ads team now. Their reply will show up here.</p>
+      <div class="chips" style="margin-top:8px"><span class="pill bad">Billing issue</span><span class="pill warn">Churn signal noted</span></div></div>
+      <div class="sec"><h4>What the ads team gets</h4><ul class="list"><li>The seller's words and the question types</li><li>The health check: conversion rate and ROAS need improvement</li><li>Priority flag, because the seller plans to cut budget</li></ul></div></div>`, "Escalated");
+    postChannel(c,id,`<span class="pill bad">Billing issue</span><span class="pill warn">Priority · churn signal</span>`,
+      `<dt>Churn signal</dt><dd>“${esc(c.churn)}”</dd><dt>Also asks</dt><dd>Why ROAS is low (underperformance). Analysis was skipped because the message needs a person.</dd>`);
+    addLog(id,c,"Escalated · billing");
+  } else {
+    botMsg(`<div class="card"><div class="sec"><p class="summary">${esc(c.shop)} is on the top-seller list, so questions go straight to the ads team. No AI analysis was run. Their reply will show up here.</p>
+      <div class="chips" style="margin-top:8px"><span class="pill rule">Top seller</span></div></div></div>`, "Escalated");
+    postChannel(c,id,`<span class="pill rule">Top seller · AI not used</span>`);
+    addLog(id,c,"Escalated · top seller");
+  }
+  $("#railLead").textContent = `Finished for ${c.shop}. Grey steps were skipped on purpose.`;
+  busy = false; $("#askBtn").disabled = false;
+}
+
+function toast(t){ const el=$("#toast"); el.textContent=t; el.hidden=false; clearTimeout(toast.h); toast.h=setTimeout(()=>el.hidden=true,2400); }
+
+document.addEventListener("click", e => {
+  const b = e.target.closest("[data-fb]"); if (!b) return;
+  const box = $("#fb-"+b.dataset.k); const row = logRows.find(r => "r"+r.k === b.dataset.k);
+  if (b.dataset.fb === "up"){
+    box.innerHTML = `<span class="note">Thanks. Marked helpful.</span>`; if (row){ row.fb="Helpful"; renderLog(); }
+  } else {
+    box.innerHTML = `<form class="fb-form" data-k="${b.dataset.k}"><label for="why-${b.dataset.k}" style="font-weight:500;font-size:13px">What didn't help? The ads team sees this.</label>
+      <textarea id="why-${b.dataset.k}" placeholder="The seller says the product page already lists shipping time."></textarea><span class="err" hidden>Add a reason first.</span>
+      <div><button class="btn primary" type="submit">Send to ads team</button></div></form>`;
+    box.querySelector("textarea").focus();
+  }
+});
+document.addEventListener("submit", e => {
+  const f = e.target.closest(".fb-form"); if (!f) return; e.preventDefault();
+  const t = f.querySelector("textarea").value.trim(); const er = f.querySelector(".err");
+  if (!t){ er.hidden=false; return; }
+  const row = logRows.find(r => "r"+r.k === f.dataset.k); const c = CASES[row.id];
+  const node = postChannel(c,row.id,`<span class="pill ai">Sales feedback · AI read not helpful</span>`,`<dt>Reason</dt><dd>${esc(t)}</dd>`);
+  row.fb = "Not helpful: " + t; row.route = "Escalated · feedback"; renderLog();
+  f.parentElement.innerHTML = `<span class="note">Sent to the ads team with your reason. It's tagged for playbook review.</span>`;
+  toast("Sent to #ads-team-escalations");
+  adsReply(row, c, node);
+});
+
+async function adsReply(row, c, node){
+  await wait(2400);
+  const std = !!c.std;
+  const text = std
+    ? `We can't share category figures, but you can tell the seller this: “${c.std}” I've added it as a standard answer, so next time the assistant includes it for sellers whose metrics are all on par or above.`
+    : "Thanks, Jessica. We're looking at this case and will reply here. If the read missed something, we'll update the playbook or the rubric.";
+  const tags = std ? `<span class="pill good">New standard answer</span><span class="pill rule">Rule updated</span>` : `<span class="pill out">Under review</span>`;
+  const r = document.createElement("div"); r.className = "thread";
+  r.innerHTML = `<div class="msg"><div class="av team">RW</div><div><div class="who">Rita Wu<span class="tag">Ads team</span><span>${now()}</span></div><div class="card"><div class="sec"><div class="chips" style="margin-bottom:8px">${tags}</div><p class="summary">${esc(text)}</p>${std ? `<div class="legend">Pattern: every metric on par or above category, seller still worried. Policy kept: no category figures.</div>` : ""}</div></div></div></div>`;
+  node.querySelector(".card").insertAdjacentElement("afterend", r);
+  if ($("#view-channel").hidden){ chN++; const cnt = $("#chCount"); cnt.textContent = chN; cnt.hidden = false; }
+  if (std) standardAdded = true;
+  botMsg(`<div class="card"><div class="sec"><p class="summary">Rita Wu from the ads team replied to your feedback on ${esc(c.shop)}.</p><div class="verbatim" style="margin-top:6px">${esc(text)}</div></div></div>`, "Ads team reply");
+  if (std){ row.route = "Resolved · new standard answer"; renderLog(); }
+  toast("Ads team replied");
+}
+const ov = $("#overlay");
+function openM(){ if (busy) return; ov.hidden=false; $("#shopErr").hidden=true; $("#qErr").hidden=true; $("#shopId").focus(); }
+function closeM(){ ov.hidden=true; $("#askBtn").focus(); }
+$("#askBtn").onclick = openM; $("#closeM").onclick = closeM; $("#cancelM").onclick = closeM;
+ov.addEventListener("click", e => { if (e.target === ov) closeM(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape" && !ov.hidden) closeM(); });
+const sel = $("#sample");
+Object.entries(CASES).forEach(([id,c]) => sel.insertAdjacentHTML("beforeend", `<option value="${id}">${esc(c.label)}</option>`));
+sel.insertAdjacentHTML("beforeend", `<option value="bad">Wrong shop ID</option>`);
+sel.onchange = () => {
+  if (!sel.value) return;
+  if (sel.value === "bad"){ $("#shopId").value = "99999999"; $("#question").value = "Our ads are doing badly. Is something wrong with your system?"; }
+  else { $("#shopId").value = sel.value; $("#question").value = CASES[sel.value].q; }
+  sel.value = ""; $("#shopErr").hidden = true; $("#qErr").hidden = true;
+};
+$("#shopId").oninput = () => $("#shopErr").hidden = true;
+$("#question").oninput = () => $("#qErr").hidden = true;
+$("#form").addEventListener("submit", e => {
+  e.preventDefault();
+  const id = $("#shopId").value.trim(), q = $("#question").value.trim(); let ok = true;
+  if (!/^\d{6,10}$/.test(id)){ $("#shopErr").textContent = "Enter the shop ID as digits only."; $("#shopErr").hidden = false; ok = false; }
+  else if (!CASES[id]){ $("#shopErr").textContent = "We couldn't find that shop ID. Check it and submit again."; $("#shopErr").hidden = false; ok = false; }
+  if (!q){ $("#qErr").textContent = "Paste the seller's question."; $("#qErr").hidden = false; ok = false; }
+  if (!ok) return;
+  ov.hidden = true; $("#shopId").value = ""; $("#question").value = "";
+  showView("dm"); run(id, q);
+});
+
+function showView(v){
+  ["dm","channel","log"].forEach(x => { $("#view-"+x).hidden = x !== v; });
+  document.querySelectorAll(".nav").forEach(n => n.setAttribute("aria-current", n.dataset.view === v ? "page" : "false"));
+  if (v === "channel"){ chN = 0; $("#chCount").hidden = true; }
+}
+document.querySelectorAll(".nav").forEach(n => n.onclick = () => showView(n.dataset.view));
+$("#railToggle").onclick = e => { const on = e.currentTarget.getAttribute("aria-pressed") !== "true"; e.currentTarget.setAttribute("aria-pressed", on); $("#app").classList.toggle("no-rail", !on); };
+function reset(){ if (busy) return; logRows=[]; chN=0; seq=0; standardAdded=false; $("#chCount").hidden=true; renderSteps(); $("#railLead").textContent="Rules run before and after AI. AI only reads the question and reviews listings."; welcome(); $("#chFeed").innerHTML=`<div class="empty">Escalations land here: billing issues, ad feature bugs, top sellers, and AI reads that Sales marked not helpful. Each one arrives with the seller's words and the health check.</div>`; renderLog(); showView("dm"); }
+$("#resetBtn").onclick = reset;
+reset();
+</script>
+
+</body>
+</html>
