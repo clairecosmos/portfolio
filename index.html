@@ -856,6 +856,47 @@ details.deep > summary .cta{background:var(--ink);color:var(--card)}
 .feat4 b{font-size:15.5px;color:var(--ink);font-weight:650}
 .feat4 span{font-size:14px}
 @media (max-width:680px){.feat4{grid-template-columns:1fr;gap:28px}}
+/* ===== P5: workflow diagram and small tables ===== */
+.p5flow{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-top:8px}
+.p5flow svg{display:block;width:100%;min-width:760px;height:auto}
+.p5-rule{fill:var(--sage);stroke:var(--olive);stroke-width:1.5}
+.p5-ai{fill:var(--mark);stroke:#c9a23f;stroke-width:1.5}
+.p5-out{fill:var(--card);stroke:var(--ink);stroke-width:1.5}
+.p5-t{font-size:14px;font-weight:650;fill:var(--ink)}
+.p5-s{font-size:12.5px;fill:var(--text)}
+.p5-on-ai{fill:#2e3024}
+.p5-sm{font-size:12.5px}
+.p5-n{font-size:12px;fill:var(--muted)}
+.p5-ln{fill:none;stroke:var(--muted);stroke-width:1.5}
+.p5-dash{stroke-dasharray:5 4}
+.p5-head{fill:var(--muted)}
+.p5key{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:12px;font-size:13px;color:var(--muted)}
+.p5sw{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px;border:1.5px solid}
+.p5sw-rule{background:var(--sage);border-color:var(--olive)}
+.p5sw-ai{background:var(--mark);border-color:#c9a23f}
+.p5sw-out{background:var(--card);border-color:var(--ink)}
+.p5t table{min-width:520px}
+.p5flow-v{display:none;margin-top:8px}
+.p5flow-v svg{display:block;width:100%;max-width:420px;height:auto}
+@media (max-width:820px){.p5flow{display:none}.p5flow-v{display:block}}
+/* P5: embedded prototype (desktop) / try button (mobile) */
+.p5proto{margin:32px 0 0}
+.p5proto-h{font-size:13px;font-weight:650;color:var(--olive);margin-bottom:10px}
+.p5proto iframe{display:block;width:100%;height:720px;border:1px solid var(--line);border-radius:6px;background:var(--card)}
+.p5try{display:none}
+@media (max-width:820px){.p5proto{display:none}.p5try{display:inline-flex}}
+/* P5: prototype screenshot above the try button (mobile) */
+.p5shot{display:none}
+@media (max-width:820px){.p5shot{display:block;margin-top:24px;border:1px solid var(--line);border-radius:6px;overflow:hidden}.p5shot img{display:block;width:100%;height:auto}}
+/* AI concept case overview: one wide card under its own heading */
+.ovc.ovw{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);grid-template-rows:none;grid-row:auto;gap:12px 40px;margin-top:28px;padding:22px 24px}
+.ovw-l,.ovw-r{display:flex;flex-direction:column;gap:6px;min-width:0}
+.ovw .ov-t{font-size:18px}
+.ovw .ov-k{margin-top:4px}
+.ovc.ovw .ov-go{margin-top:8px}
+@media (max-width:760px){.ovc.ovw{grid-template-columns:1fr;padding:18px 20px}}
+/* Work menu: concept case group */
+.gn-mgrp{margin:6px 12px 0;padding-top:12px;border-top:1px solid var(--line);font-size:11.5px;font-weight:650;color:var(--olive)}
 </style>
 </head>
 <body>
@@ -872,6 +913,8 @@ details.deep > summary .cta{background:var(--ink);color:var(--card)}
           <a role="menuitem" href="#p2"><b>02 Pinkoi User Touchpoints Testing</b><span>Data → hypothesis → controlled experiment</span></a>
           <a role="menuitem" href="#p3"><b>03 Shopee Ads Growth Service</b><span>Mechanism design + multi-party alignment</span></a>
           <a role="menuitem" href="#p4"><b>04 Morning Check-in</b><span>Independent product + technical judgment</span></a>
+          <div class="gn-mgrp" role="presentation">AI solution · Concept case</div>
+          <a role="menuitem" href="#p5"><b>Ads Health-Check Assistant for Sales</b><span>AI fit + guardrails + evaluation</span></a>
         </div>
       </div>
       <a href="#other">Other Work</a>
@@ -969,6 +1012,23 @@ details.deep > summary .cta{background:var(--ink);color:var(--card)}
       <span class="ov-go">Go to project ↓</span>
     </a>
   </div>
+</section>
+
+<!-- AI SOLUTION CONCEPT CASE -->
+<section class="block" id="concept" aria-labelledby="conceptt">
+  <p class="kicker">AI solution · Concept case</p>
+  <h2 id="conceptt">One concept case. Designing with rules, AI and people.</h2>
+  <a class="ovc ovw" href="#p5">
+    <span class="ovw-l">
+      <span class="ov-t">Where AI fits: an ads health-check assistant for Sales</span>
+      <span class="ov-cap">AI solution design + evaluation + adoption</span>
+    </span>
+    <span class="ovw-r">
+      <span class="ov-d">Sales waited 5–7 days for answers to sellers’ ad questions. I framed the problem and designed the workflow, decided <strong>where AI fits and where rules do</strong>, set <strong>guardrails by the cost of a mistake</strong>, and planned the pilot and adoption. Redesigned from a 2021 pain point with synthetic data.</span>
+      <span class="ov-k">28 test cases · 118 / 118 rule checks passed</span>
+      <span class="ov-go">Go to case ↓</span>
+    </span>
+  </a>
 </section>
 
 <!-- ============ PROJECT 01 ============ -->
@@ -1450,6 +1510,203 @@ details.deep > summary .cta{background:var(--ink);color:var(--card)}
   </details>
 </section>
 
+<!-- ============ PROJECT 05 ============ -->
+<section class="block" id="p5" aria-labelledby="p5t">
+  <div class="project-head">
+    <p class="kicker">Concept case</p>
+    <h2 id="p5t">Where AI fits: an ads health-check assistant for Sales</h2>
+    <div class="meta-row"><span>Shopee</span><span>AI Solution Design</span><em>Concept case, redesigned from a 2021 pain point with synthetic data</em></div>
+    <div class="mini"><span class="on">Frame</span><span class="on">Validate</span><span class="on">Prioritize</span><span class="on">Trade-offs</span><span class="on">Learn &amp; adjust</span></div>
+  </div>
+
+  <dl class="brief"><dt>Problem</dt><dd>Sales could see every dashboard but couldn’t read them together. Sellers’ ad questions waited 5–7 working days for the ads team, lost detail on the way, and the ads team was running out of capacity.</dd><dt>Goal</dt><dd class="key">Give Sales a data-backed read on the seller’s shop within minutes, and send only the questions that need an expert to the ads team.</dd></dl>
+
+  <p class="label" style="margin-top:40px">Rules run before and after AI. AI only reads and judges.</p>
+  <div class="p5flow" tabindex="0" aria-label="Solution workflow">
+    <svg viewBox="0 -30 960 390" role="img" aria-labelledby="p5flowT p5flowD">
+      <title id="p5flowT">Solution workflow</title>
+      <desc id="p5flowD">Sales submit a shop ID and the seller’s words. Rules pull shop data, AI reads the question, rules route it. AI reviews listings and writes the read, rules check the output. Passing output goes to Sales; failures go to the ads team. Top sellers go to the ads team at step 2, before any AI call. Billing and ad feature bugs go after AI reads the question, skipping the listing review.</desc>
+      <defs><marker id="p5a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="p5-head"/></marker></defs>
+      <g class="p5-ln" marker-end="url(#p5a)">
+        <path d="M220 62H258"/><path d="M460 62H498"/><path d="M700 62H738"/>
+        <path d="M800 94V122H120V148"/>
+        <path d="M220 182H258"/><path d="M460 182H498"/>
+        <path d="M600 214V266"/>
+        <path d="M536 302H462"/><path d="M664 302H738"/>
+      </g>
+      <path d="M880 94V268" class="p5-ln p5-dash" marker-end="url(#p5a)"/>
+      <path d="M360 30V-8H952V302H942" class="p5-ln p5-dash" marker-end="url(#p5a)"/>
+      <text x="656" y="-15" text-anchor="middle" class="p5-n">Top sellers: no AI call</text>
+      <text x="870" y="186" text-anchor="end" class="p5-n">Billing, bugs:</text>
+      <text x="870" y="202" text-anchor="end" class="p5-n">no listing review</text>
+      <text x="499" y="292" text-anchor="middle" class="p5-n">Pass</text>
+      <text x="701" y="292" text-anchor="middle" class="p5-n">Fail</text>
+
+      <rect x="20" y="30" width="200" height="64" rx="6" class="p5-out"/>
+      <text x="36" y="56" class="p5-t">1 · Sales submit a form</text><text x="36" y="76" class="p5-s">Shop ID + seller’s words</text>
+      <rect x="260" y="30" width="200" height="64" rx="6" class="p5-rule"/>
+      <text x="276" y="56" class="p5-t">2 · Pull shop data</text><text x="276" y="76" class="p5-s">Health check, top 3 products</text>
+      <rect x="500" y="30" width="200" height="64" rx="6" class="p5-ai"/>
+      <text x="516" y="56" class="p5-t p5-on-ai">3 · Read the question</text><text x="516" y="76" class="p5-s p5-on-ai">Type, assumptions, churn</text>
+      <rect x="740" y="30" width="200" height="64" rx="6" class="p5-rule"/>
+      <text x="756" y="56" class="p5-t">4 · Route the question</text><text x="756" y="76" class="p5-s">Escalate, or pick a review</text>
+
+      <rect x="20" y="150" width="200" height="64" rx="6" class="p5-ai"/>
+      <text x="36" y="176" class="p5-t p5-on-ai">5 · Review listings</text><text x="36" y="196" class="p5-s p5-on-ai">Against a rubric, with quotes</text>
+      <rect x="260" y="150" width="200" height="64" rx="6" class="p5-ai"/>
+      <text x="276" y="176" class="p5-t p5-on-ai">6 · Write the read</text><text x="276" y="196" class="p5-s p5-on-ai">Playbook directions only</text>
+      <rect x="500" y="150" width="200" height="64" rx="6" class="p5-rule"/>
+      <text x="516" y="176" class="p5-t">7 · Check the output</text><text x="516" y="196" class="p5-s">Quotes and data match</text>
+
+      <polygon points="536,302 600,268 664,302 600,336" class="p5-rule"/>
+      <text x="600" y="306" text-anchor="middle" class="p5-t p5-sm">Checks pass?</text>
+      <rect x="260" y="270" width="200" height="64" rx="6" class="p5-out"/>
+      <text x="276" y="296" class="p5-t">Send the read to Sales</text><text x="276" y="316" class="p5-s">With feedback buttons</text>
+      <rect x="740" y="270" width="200" height="64" rx="6" class="p5-out"/>
+      <text x="756" y="296" class="p5-t">Send to the ads team</text><text x="756" y="316" class="p5-s">With the context attached</text>
+    </svg>
+  </div>
+  <div class="p5flow-v">
+    <svg viewBox="0 0 340 882" role="img" aria-labelledby="p5flowVT p5flowVD">
+      <title id="p5flowVT">Solution workflow</title>
+      <desc id="p5flowVD">Sales submit a shop ID and the seller’s words. Rules pull shop data, AI reads the question, rules route it. AI reviews listings and writes the read, rules check the output. Passing output goes to Sales; failures go to the ads team. Top sellers go to the ads team at step 2, before any AI call. Billing and ad feature bugs go after AI reads the question, skipping the listing review.</desc>
+      <defs><marker id="p5av" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="p5-head"/></marker></defs>
+      <g class="p5-ln" marker-end="url(#p5av)">
+        <path d="M101 61V89"/><path d="M101 151V179"/><path d="M101 241V269"/><path d="M101 331V359"/>
+        <path d="M101 421V449"/><path d="M101 511V539"/><path d="M101 601V631"/>
+        <path d="M101 701V729"/><path d="M165 667H230V819"/>
+      </g>
+      <path d="M201 121H326V819" class="p5-ln p5-dash" marker-end="url(#p5av)"/>
+      <path d="M201 301H280V819" class="p5-ln p5-dash" marker-end="url(#p5av)"/>
+      <text x="210" y="98" class="p5-n">Top sellers:</text>
+      <text x="210" y="113" class="p5-n">no AI call</text>
+      <text x="210" y="278" class="p5-n">Billing, bugs:</text>
+      <text x="210" y="293" class="p5-n">no listing review</text>
+      <text x="109" y="720" class="p5-n">Pass</text>
+      <text x="197" y="659" text-anchor="middle" class="p5-n">Fail</text>
+
+      <rect x="1" y="1" width="200" height="60" rx="6" class="p5-out"/>
+      <text x="15" y="26" class="p5-t">1 · Sales submit a form</text><text x="15" y="45" class="p5-s">Shop ID + seller’s words</text>
+      <rect x="1" y="91" width="200" height="60" rx="6" class="p5-rule"/>
+      <text x="15" y="116" class="p5-t">2 · Pull shop data</text><text x="15" y="135" class="p5-s">Health check, top 3 products</text>
+      <rect x="1" y="181" width="200" height="60" rx="6" class="p5-ai"/>
+      <text x="15" y="206" class="p5-t p5-on-ai">3 · Read the question</text><text x="15" y="225" class="p5-s p5-on-ai">Type, assumptions, churn</text>
+      <rect x="1" y="271" width="200" height="60" rx="6" class="p5-rule"/>
+      <text x="15" y="296" class="p5-t">4 · Route the question</text><text x="15" y="315" class="p5-s">Escalate, or pick a review</text>
+      <rect x="1" y="361" width="200" height="60" rx="6" class="p5-ai"/>
+      <text x="15" y="386" class="p5-t p5-on-ai">5 · Review listings</text><text x="15" y="405" class="p5-s p5-on-ai">Against a rubric, with quotes</text>
+      <rect x="1" y="451" width="200" height="60" rx="6" class="p5-ai"/>
+      <text x="15" y="476" class="p5-t p5-on-ai">6 · Write the read</text><text x="15" y="495" class="p5-s p5-on-ai">Playbook directions only</text>
+      <rect x="1" y="541" width="200" height="60" rx="6" class="p5-rule"/>
+      <text x="15" y="566" class="p5-t">7 · Check the output</text><text x="15" y="585" class="p5-s">Quotes and data match</text>
+
+      <polygon points="37,667 101,633 165,667 101,701" class="p5-rule"/>
+      <text x="101" y="671" text-anchor="middle" class="p5-t p5-sm">Checks pass?</text>
+      <rect x="1" y="731" width="200" height="60" rx="6" class="p5-out"/>
+      <text x="15" y="756" class="p5-t">Send the read to Sales</text><text x="15" y="775" class="p5-s">With feedback buttons</text>
+      <rect x="139" y="821" width="200" height="60" rx="6" class="p5-out"/>
+      <text x="153" y="846" class="p5-t">Send to the ads team</text><text x="153" y="865" class="p5-s">With the context attached</text>
+    </svg>
+  </div>
+  <div class="p5key"><span><i class="p5sw p5sw-rule"></i>Rule: fixed logic, no tokens</span><span><i class="p5sw p5sw-ai"></i>AI: language and judgment</span><span><i class="p5sw p5sw-out"></i>People and outputs</span></div>
+  <p class="swipe-hint">Every question is logged, and churn signals such as “I’m cutting next month’s budget in half” are flagged.</p>
+
+  <p class="label" style="margin-top:56px">Key decisions</p>
+  <div class="decisions d2 lite" style="margin-top:4px">
+    <div class="dc"><span class="dn">01 · AI fit</span><h4>If a rule can decide it, AI doesn’t</h4><p>The health check, routing and output checks are fixed logic: stable, checkable and free of token cost. AI only reads the seller’s words and reviews the top 3 listings against a rubric.</p></div>
+    <div class="dc"><span class="dn">02 · Rollout</span><h4>Sales first, customer service later</h4><p>Sellers with a Sales contact matter more, and Sales know the shop and read the answer before the seller does. Customer service replies go straight to sellers, so they wait until accuracy is proven.</p></div>
+    <div class="dc"><span class="dn">03 · Build</span><h4>A workflow instead of a custom GPT</h4><p>A custom GPT is faster to set up, but it can’t pull each shop’s data with access rules, run checks before and after AI, or force escalation and logging.</p></div>
+    <div class="dc"><span class="dn">04 · Guardrails</span><h4>Set the bar by the cost of a mistake</h4><p>Zero tolerance for missed escalations, invented quotes, claims that contradict the data, or leaked category figures. A wrong label with the right routing is tracked, not blocked.</p></div>
+  </div>
+
+  <p class="label bare kr">How I’d measure it</p>
+  <div class="impact">
+    <div><span class="sup-n">Self-serve rate</span><p>Primary metric: questions answered without the ads team and marked helpful by Sales</p><span class="fn">Target set before the pilot</span></div>
+    <div><span class="sup-n">Minutes</span><p>Answer time for questions the assistant can handle, down from 5–7 working days</p><span class="fn">Target for a pilot</span></div>
+    <div><span class="sup-n">0</span><p>Zero-tolerance errors allowed in the test set</p><span class="fn">Missed escalations, invented quotes, contradictions with the data, leaked figures</span></div>
+  </div>
+
+  <p class="label bare" style="margin-top:56px">What I tested</p>
+  <div class="proof3" style="margin-top:0">
+    <div><b>28 test cases</b><p>Across 8 seller personas, from polite questions to “is your system sending me fake traffic?”</p></div>
+    <div><b class="hl">118 / 118</b><p>Rule checks passed on real model runs across 6 cases, after one instruction fix</p><span class="fn">Quotes exist in the source, matches the health check, no amounts or personal data</span></div>
+    <div><b>Prototype</b><p>Every route in a clickable prototype, with a behind-the-scenes view of what rules and AI do</p></div>
+  </div>
+
+  <figure class="p5proto">
+    <p class="p5proto-h">Try it here: pick a preset question and open the behind-the-scenes view</p>
+    <iframe src="ads-assistant/index.html" title="Ads Assistant prototype" loading="lazy"></iframe>
+  </figure>
+  <a class="p5shot" href="https://claude.ai/artifact/CctUeYn8nzAi57bEA84JV4" target="_blank" rel="noopener" aria-label="Open the Ads Assistant prototype in a new tab"><img src="assets/img/p5-prototype.webp" alt="Ads Assistant prototype: a seller’s question, the health check and the read, with the behind-the-scenes steps on the right" width="1600" height="960" loading="lazy" onerror="this.parentElement.remove()"></a>
+  <a class="trylink p5try" href="https://claude.ai/artifact/CctUeYn8nzAi57bEA84JV4" target="_blank" rel="noopener">Try the prototype ↗</a>
+
+  <div class="own"><p class="own-h">My contribution</p><ul><li><b>Problem framing:</b> from my own time on Shopee’s ads team, answering Sales’ questions shop by shop</li><li><b>Solution design:</b> the split between rules, AI and people; routing, escalation and guardrails</li><li><b>Evaluation design:</b> acceptance criteria by error cost and a 28-case test set</li><li><b>Prototype:</b> a clickable prototype using real model outputs, with the rule layer built on 1,500 synthetic shops</li></ul></div>
+
+  <details class="deep">
+    <summary>
+      <span class="sum-title">See how I made the decisions</span>
+      <span class="sum-desc">Why AI at all, who goes first, how rules steer AI, the guardrails, how it’s evaluated and rolled out, and what the tests taught me.</span>
+      <span class="chips"><span>Why AI</span><span>Who goes first</span><span>Rules vs AI</span><span>Guardrails</span><span>Evaluation</span><span>Rollout</span><span>What I learned</span></span>
+      <span class="cta"><span class="pm" aria-hidden="true">+</span><span class="cta-t">See the full details</span></span>
+    </summary>
+    <nav class="lnav" aria-label="Sections in this case"><a href="#p5-why">Why AI</a><a href="#p5-first">Who goes first</a><a href="#p5-rules">Rules vs AI</a><a href="#p5-guard">Guardrails</a><a href="#p5-eval">Evaluation</a><a href="#p5-roll">Rollout</a><a href="#p5-learn">What I learned</a></nav>
+    <div class="areas">
+      <div id="p5-why" class="area"><h4>1. Why AI, and why not something simpler</h4><ul>
+        <li><strong>FAQ</strong> teaches general rules, but can’t answer for one seller’s shop.</li>
+        <li><strong>Training</strong> can’t keep up with 100 Sales and a steady flow of new hires.</li>
+        <li><strong>Dashboards</strong> already show the numbers. Sales need to know what they mean for this seller’s question.</li>
+        <li><strong>The gap AI fills:</strong> reading messy questions, and judging titles, descriptions, reviews and images, work that used to need the ads team shop by shop.</li></ul></div>
+      <div id="p5-first" class="area"><h4>2. Who goes first</h4><div>
+        <div class="scroll p5t" tabindex="0" aria-label="Sales compared with customer service, scroll sideways" style="margin-top:0"><table>
+          <thead><tr><th></th><th>Sales</th><th>Customer service</th></tr></thead>
+          <tbody>
+            <tr><td><span class="case">Seller value</span></td><td>Larger, more important sellers</td><td>All sellers, most without a Sales contact</td></tr>
+            <tr><td><span class="case">Knows the shop</span></td><td>Knows each shop’s sales and operations</td><td>Sees one question at a time</td></tr>
+            <tr><td><span class="case">Answer quality</span></td><td>Can put the read in context</td><td>Answers the single question</td></tr>
+            <tr><td><span class="case">Risk of a mistake</span></td><td>Sales read it first, then reply</td><td>The answer goes straight to the seller</td></tr>
+            <tr><td><span class="case">Volume</span></td><td>Lower</td><td>Likely higher</td></tr>
+          </tbody></table></div>
+        <p style="margin-top:12px;font-size:14.5px">The first version takes higher value and lower risk. Customer service comes after accuracy is proven.</p></div></div>
+      <div id="p5-rules" class="area"><h4>3. Rules decide what AI reviews</h4><div><ul>
+        <li><strong>Only the top 3 products</strong> by last month’s ad spend, because sellers care most about where their money goes.</li>
+        <li><strong>Each product’s weak metric picks the review:</strong></li></ul>
+        <div class="scroll p5t" tabindex="0" aria-label="What AI reviews by weak metric, scroll sideways" style="margin-top:10px"><table>
+          <thead><tr><th>Weak metric</th><th>What AI reviews</th></tr></thead>
+          <tbody>
+            <tr><td><span class="case">CTR</span></td><td>Title, images, keyword–title fit, match type</td></tr>
+            <tr><td><span class="case">Conversion rate</span></td><td>Description and reviews</td></tr>
+            <tr><td><span class="case">Impressions</span></td><td>Keyword count, match type, products advertised</td></tr>
+            <tr><td><span class="case">Avg. CPC, ROAS</span></td><td>Keyword performance and match type, never bid amounts</td></tr>
+          </tbody></table></div>
+        <p style="margin-top:12px;font-size:14.5px">Images follow the platform’s listing score first; AI only adds what the score doesn’t explain. The more data rules can check, the less AI has to judge.</p></div></div>
+      <div id="p5-guard" class="area"><h4>4. Guardrails and escalation</h4><ul>
+        <li><strong>To the ads team:</strong> billing issues, ad feature bugs, top sellers, checks that fail, AI judgments that contradict the listing score, and answers AI flags as needing data it wasn’t given.</li>
+        <li><strong>Answered by rules:</strong> budget questions get the ads team’s standard multipliers. AI never calculates amounts, and bid amounts are never given.</li>
+        <li><strong>Every observation quotes its source,</strong> and rules check the quote exists.</li>
+        <li><strong>Category averages and medians stay in the rule layer.</strong> They never reach the model, and Sales only see Above, On par or Needs improvement, so internal benchmarks can’t be passed on to sellers to win budget, and AI has no figures to leak.</li>
+        <li><strong>Personal data is masked by rules before AI sees it:</strong> phone numbers, emails and order numbers by pattern, buyer names by matching the shop’s order records. AI still reads the meaning; the data never reaches an outside model.</li>
+        <li><strong>Stop:</strong> unknown shop IDs, or personal data that can’t be masked.</li></ul></div>
+      <div id="p5-eval" class="area"><h4>5. Evaluation</h4><div>
+        <div class="scroll p5t" tabindex="0" aria-label="Acceptance criteria, scroll sideways" style="margin-top:0"><table>
+          <thead><tr><th>Error type</th><th>Examples</th><th>Bar</th></tr></thead>
+          <tbody>
+            <tr><td><span class="case">Zero tolerance</span></td><td>Missed escalation, invented quote, contradicts the data, leaked figures</td><td>0 in the test set</td></tr>
+            <tr><td><span class="case">Tracked</span></td><td>Wrong question type, right routing</td><td>No bar; patterns logged</td></tr>
+            <tr><td><span class="case">Expert review</span></td><td>Is the read usable as is, with small edits, or not at all?</td><td>80% usable to start, revisited after the pilot</td></tr>
+          </tbody></table></div>
+        <p style="margin-top:12px;font-size:14.5px">A test set of a few dozen cases finds failure patterns. Real rates come from the pilot. AI’s own confidence is logged but not used as a gate until the test set shows it actually predicts mistakes.</p></div></div>
+      <div id="p5-roll" class="area"><h4>6. Rollout and the feedback loop</h4><ul>
+        <li><strong>Pilot</strong> in the 5 categories with the most ad questions, since the health check depends on category benchmarks.</li>
+        <li><strong>One way in:</strong> a form in the internal messenger bot replaces the old weekly shared Google Sheet. Sales can’t chat with it, so every question goes through the same checks.</li>
+        <li><strong>Feedback with a reason:</strong> “Not helpful” requires a reason, goes to the ads team, and can become a new standard answer or playbook update.</li></ul></div>
+      <div id="p5-learn" class="area"><h4>7. What I learned</h4><ul>
+        <li><strong>A healthy shop isn’t a problem to escalate.</strong> In the first run, the model sent a shop with nothing wrong to the ads team. I made “nothing needs fixing” a valid answer, reran every case, and all checks passed.</li>
+        <li><strong>Policy stays with people.</strong> Testing as Sales, I asked to share category benchmarks with a worried seller. The request went to the ads team, the policy held, and the reply became a standard answer that needs no figures.</li></ul></div>
+    </div>
+    <a class="trylink" href="https://docs.google.com/document/d/e/2PACX-1vRUfbqhZ-7mk0b9Ve7hfCSNNXhv0esM0lyrVmkqgijkKivliEBBD749GhBpI7kgAZXZ69zZXs1qvZHU/pub" target="_blank" rel="noopener">Read the full solution brief (in Chinese) ↗</a>
+  </details>
+</section>
+
 <!-- OTHER WORK -->
 <section class="block" id="other" aria-labelledby="othert">
   <p class="kicker">Other work</p>
@@ -1522,15 +1779,19 @@ document.querySelectorAll('details.deep').forEach(function(d){
 
 (function(){
   var bar=document.getElementById('pbar'), k=document.getElementById('pbarK'), tt=document.getElementById('pbarT');
-  var ids=['p1','p2','p3','p4','other'], secs=ids.map(function(id){return document.getElementById(id);}).filter(Boolean);
+  var ids=['p1','p2','p3','p4','p5','other'], secs=ids.map(function(id){return document.getElementById(id);}).filter(Boolean);
   var NAV=58, current=null, ticking=false;
   function update(){
     ticking=false;
-    var line=NAV+52, found=null;
+    var line=NAV+52, found=null, cand=null;
+    /* A section counts as current once its top reaches where anchor jumps land,
+       so right after a jump the bar never shows the previous project's title. */
+    var land=(parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop)||line)+8;
     for(var i=0;i<secs.length;i++){
-      var s=secs[i], r=s.getBoundingClientRect(), h=s.querySelector('h2');
-      if(r.top<=line && r.bottom>line && h && h.getBoundingClientRect().bottom<NAV+8){found=s;}
+      var r=secs[i].getBoundingClientRect();
+      if(r.top<=land && r.bottom>line){cand=secs[i];}
     }
+    if(cand){ var h=cand.querySelector('h2'); if(h && h.getBoundingClientRect().bottom<NAV+8){found=cand;} }
     spy();
     if(found!==current){
       current=found;
