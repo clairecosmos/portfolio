@@ -895,6 +895,8 @@ details.deep > summary .cta{background:var(--ink);color:var(--card)}
 .ovw .ov-k{margin-top:4px}
 .ovc.ovw .ov-go{margin-top:8px}
 @media (max-width:760px){.ovc.ovw{grid-template-columns:1fr;padding:18px 20px}}
+/* P5 What I tested: highlight only the number */
+.proof3 b .p5hl{display:inline-block;background:var(--mark);color:#2e3024;padding:0 8px;border-radius:3px}
 /* Work menu: concept case group */
 .gn-mgrp{margin:6px 12px 0;padding-top:12px;border-top:1px solid var(--line);font-size:11.5px;font-weight:650;color:var(--olive)}
 </style>
@@ -1525,7 +1527,7 @@ details.deep > summary .cta{background:var(--ink);color:var(--card)}
   <div class="p5flow" tabindex="0" aria-label="Solution workflow">
     <svg viewBox="0 -30 960 390" role="img" aria-labelledby="p5flowT p5flowD">
       <title id="p5flowT">Solution workflow</title>
-      <desc id="p5flowD">Sales submit a shop ID and the seller’s words. Rules pull shop data, AI reads the question, rules route it. AI reviews listings and writes the read, rules check the output. Passing output goes to Sales; failures go to the ads team. Top sellers go to the ads team at step 2, before any AI call. Billing and ad feature bugs go after AI reads the question, skipping the listing review.</desc>
+      <desc id="p5flowD">Sales submit a shop ID and the seller’s words. Rules pull shop data and mask personal data, AI reads the question, rules route it. AI reviews listings and writes the read, rules check the output. Passing output goes to Sales; failures go to the ads team. Top sellers go to the ads team at step 2, before any AI call. Billing and ad feature bugs go after AI reads the question, skipping the listing review.</desc>
       <defs><marker id="p5a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="p5-head"/></marker></defs>
       <g class="p5-ln" marker-end="url(#p5a)">
         <path d="M220 62H258"/><path d="M460 62H498"/><path d="M700 62H738"/>
@@ -1545,7 +1547,7 @@ details.deep > summary .cta{background:var(--ink);color:var(--card)}
       <rect x="20" y="30" width="200" height="64" rx="6" class="p5-out"/>
       <text x="36" y="56" class="p5-t">1 · Sales submit a form</text><text x="36" y="76" class="p5-s">Shop ID + seller’s words</text>
       <rect x="260" y="30" width="200" height="64" rx="6" class="p5-rule"/>
-      <text x="276" y="56" class="p5-t">2 · Pull shop data</text><text x="276" y="76" class="p5-s">Health check, top 3 products</text>
+      <text x="276" y="56" class="p5-t">2 · Pull and mask data</text><text x="276" y="76" class="p5-s">Health check, top 3 products</text>
       <rect x="500" y="30" width="200" height="64" rx="6" class="p5-ai"/>
       <text x="516" y="56" class="p5-t p5-on-ai">3 · Read the question</text><text x="516" y="76" class="p5-s p5-on-ai">Type, assumptions, churn</text>
       <rect x="740" y="30" width="200" height="64" rx="6" class="p5-rule"/>
@@ -1569,7 +1571,7 @@ details.deep > summary .cta{background:var(--ink);color:var(--card)}
   <div class="p5flow-v">
     <svg viewBox="0 0 340 882" role="img" aria-labelledby="p5flowVT p5flowVD">
       <title id="p5flowVT">Solution workflow</title>
-      <desc id="p5flowVD">Sales submit a shop ID and the seller’s words. Rules pull shop data, AI reads the question, rules route it. AI reviews listings and writes the read, rules check the output. Passing output goes to Sales; failures go to the ads team. Top sellers go to the ads team at step 2, before any AI call. Billing and ad feature bugs go after AI reads the question, skipping the listing review.</desc>
+      <desc id="p5flowVD">Sales submit a shop ID and the seller’s words. Rules pull shop data and mask personal data, AI reads the question, rules route it. AI reviews listings and writes the read, rules check the output. Passing output goes to Sales; failures go to the ads team. Top sellers go to the ads team at step 2, before any AI call. Billing and ad feature bugs go after AI reads the question, skipping the listing review.</desc>
       <defs><marker id="p5av" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="p5-head"/></marker></defs>
       <g class="p5-ln" marker-end="url(#p5av)">
         <path d="M101 61V89"/><path d="M101 151V179"/><path d="M101 241V269"/><path d="M101 331V359"/>
@@ -1588,7 +1590,7 @@ details.deep > summary .cta{background:var(--ink);color:var(--card)}
       <rect x="1" y="1" width="200" height="60" rx="6" class="p5-out"/>
       <text x="15" y="26" class="p5-t">1 · Sales submit a form</text><text x="15" y="45" class="p5-s">Shop ID + seller’s words</text>
       <rect x="1" y="91" width="200" height="60" rx="6" class="p5-rule"/>
-      <text x="15" y="116" class="p5-t">2 · Pull shop data</text><text x="15" y="135" class="p5-s">Health check, top 3 products</text>
+      <text x="15" y="116" class="p5-t">2 · Pull and mask data</text><text x="15" y="135" class="p5-s">Health check, top 3 products</text>
       <rect x="1" y="181" width="200" height="60" rx="6" class="p5-ai"/>
       <text x="15" y="206" class="p5-t p5-on-ai">3 · Read the question</text><text x="15" y="225" class="p5-s p5-on-ai">Type, assumptions, churn</text>
       <rect x="1" y="271" width="200" height="60" rx="6" class="p5-rule"/>
@@ -1613,24 +1615,24 @@ details.deep > summary .cta{background:var(--ink);color:var(--card)}
 
   <p class="label" style="margin-top:56px">Key decisions</p>
   <div class="decisions d2 lite" style="margin-top:4px">
-    <div class="dc"><span class="dn">01 · AI fit</span><h4>If a rule can decide it, AI doesn’t</h4><p>The health check, routing and output checks are fixed logic: stable, checkable and free of token cost. AI only reads the seller’s words and reviews the top 3 listings against a rubric.</p></div>
-    <div class="dc"><span class="dn">02 · Rollout</span><h4>Sales first, customer service later</h4><p>Sellers with a Sales contact matter more, and Sales know the shop and read the answer before the seller does. Customer service replies go straight to sellers, so they wait until accuracy is proven.</p></div>
-    <div class="dc"><span class="dn">03 · Build</span><h4>A workflow instead of a custom GPT</h4><p>A custom GPT is faster to set up, but it can’t pull each shop’s data with access rules, run checks before and after AI, or force escalation and logging.</p></div>
-    <div class="dc"><span class="dn">04 · Guardrails</span><h4>Set the bar by the cost of a mistake</h4><p>Zero tolerance for missed escalations, invented quotes, claims that contradict the data, or leaked category figures. A wrong label with the right routing is tracked, not blocked.</p></div>
+    <div class="dc"><span class="dn">01 · AI fit</span><h4>Use rules for verifiable checks; AI for interpretation</h4><p>Rules handle data retrieval, health checks, routing, and output validation. AI interprets the seller’s question, reviews the top three listings against a rubric, and drafts the analysis, within a clearly defined scope.</p></div>
+    <div class="dc"><span class="dn">02 · Rollout</span><h4>Validate with Sales before answers reach sellers</h4><p>Sales can interpret the analysis in account context and review it before replying. Customer-service responses go directly to sellers, so that channel comes only after accuracy has been demonstrated.</p></div>
+    <div class="dc"><span class="dn">03 · Build</span><h4>Use a workflow to make controls enforceable</h4><p>The solution needs shop-level access controls, checks around model calls, enforced escalation and audit logs. A workflow makes these controls explicit and testable, rather than relying on a standalone GPT’s instructions.</p></div>
+    <div class="dc"><span class="dn">04 · Guardrails</span><h4>Set acceptance thresholds by the cost of error</h4><p>Missed escalations, fabricated quotes, data contradictions, and exposed category benchmarks are release-blocking: zero allowed in the test set. A wrong label with the correct routing is tracked, not blocked, because the handling decision remains sound.</p></div>
   </div>
 
   <p class="label bare kr">How I’d measure it</p>
   <div class="impact">
     <div><span class="sup-n">Self-serve rate</span><p>Primary metric: questions answered without the ads team and marked helpful by Sales</p><span class="fn">Target set before the pilot</span></div>
     <div><span class="sup-n">Minutes</span><p>Answer time for questions the assistant can handle, down from 5–7 working days</p><span class="fn">Target for a pilot</span></div>
-    <div><span class="sup-n">0</span><p>Zero-tolerance errors allowed in the test set</p><span class="fn">Missed escalations, invented quotes, contradictions with the data, leaked figures</span></div>
+    <div><span class="sup-n">0</span><p>Zero-tolerance errors allowed in the test set</p><span class="fn">Missed escalations, fabricated quotes, data contradictions, exposed category benchmarks</span></div>
   </div>
 
   <p class="label bare" style="margin-top:56px">What I tested</p>
   <div class="proof3" style="margin-top:0">
-    <div><b>28 test cases</b><p>Across 8 seller personas, from polite questions to “is your system sending me fake traffic?”</p></div>
-    <div><b class="hl">118 / 118</b><p>Rule checks passed on real model runs across 6 cases, after one instruction fix</p><span class="fn">Quotes exist in the source, matches the health check, no amounts or personal data</span></div>
-    <div><b>Prototype</b><p>Every route in a clickable prototype, with a behind-the-scenes view of what rules and AI do</p></div>
+    <div><b>28 test cases</b><p>Across 8 seller personas, covering routine questions, ambiguous requests and distrustful claims such as “Is your system sending me fake traffic?”</p></div>
+    <div><b><span class="p5hl">118 / 118</span> rule checks passed</b><p>Across 6 real model runs, all rule checks passed after one instruction fix. Checks covered source-backed quotes, consistency with the health check, and exclusion of amounts and personal data.</p></div>
+    <div><b>Clickable workflow prototype</b><p>Every route is clickable, with a behind-the-scenes view showing which steps are handled by rules or AI, and when a case is escalated.</p></div>
   </div>
 
   <figure class="p5proto">
@@ -1640,12 +1642,12 @@ details.deep > summary .cta{background:var(--ink);color:var(--card)}
   <a class="p5shot" href="https://claude.ai/artifact/CctUeYn8nzAi57bEA84JV4" target="_blank" rel="noopener" aria-label="Open the Ads Assistant prototype in a new tab"><img src="assets/img/p5-prototype.webp" alt="Ads Assistant prototype: a seller’s question, the health check and the read, with the behind-the-scenes steps on the right" width="1600" height="960" loading="lazy" onerror="this.parentElement.remove()"></a>
   <a class="trylink p5try" href="https://claude.ai/artifact/CctUeYn8nzAi57bEA84JV4" target="_blank" rel="noopener">Try the prototype ↗</a>
 
-  <div class="own"><p class="own-h">My contribution</p><ul><li><b>Problem framing:</b> from my own time on Shopee’s ads team, answering Sales’ questions shop by shop</li><li><b>Solution design:</b> the split between rules, AI and people; routing, escalation and guardrails</li><li><b>Evaluation design:</b> acceptance criteria by error cost and a 28-case test set</li><li><b>Prototype:</b> a clickable prototype using real model outputs, with the rule layer built on 1,500 synthetic shops</li></ul></div>
+  <div class="own"><p class="own-h">My contribution</p><ul><li><b>Problem framing:</b> Grounded the problem in my firsthand experience answering Sales’ shop-specific ad questions at Shopee.</li><li><b>Solution design:</b> Defined the division of work across rules, AI and people, including routing, escalation and guardrails.</li><li><b>Evaluation design:</b> Set acceptance thresholds by error severity and designed a 28-case test set across 8 seller personas.</li><li><b>Prototype:</b> Built a clickable prototype using real model outputs, with a rule-based data layer backed by 1,500 synthetic shops.</li></ul></div>
 
   <details class="deep">
     <summary>
       <span class="sum-title">See how I made the decisions</span>
-      <span class="sum-desc">Why AI at all, who goes first, how rules steer AI, the guardrails, how it’s evaluated and rolled out, and what the tests taught me.</span>
+      <span class="sum-desc">Explore the reasoning behind each choice: where AI adds value, how rules constrain it, why Sales comes first, how risks shape evaluation and rollout, and what testing revealed.</span>
       <span class="chips"><span>Why AI</span><span>Who goes first</span><span>Rules vs AI</span><span>Guardrails</span><span>Evaluation</span><span>Rollout</span><span>What I learned</span></span>
       <span class="cta"><span class="pm" aria-hidden="true">+</span><span class="cta-t">See the full details</span></span>
     </summary>
@@ -1680,17 +1682,17 @@ details.deep > summary .cta{background:var(--ink);color:var(--card)}
           </tbody></table></div>
         <p style="margin-top:12px;font-size:14.5px">Images follow the platform’s listing score first; AI only adds what the score doesn’t explain. The more data rules can check, the less AI has to judge.</p></div></div>
       <div id="p5-guard" class="area"><h4>4. Guardrails and escalation</h4><ul>
+        <li><strong>Personal data is masked by rules before the first AI call:</strong> phone numbers, emails and order numbers by pattern, buyer names by matching the shop’s order records. AI still reads the meaning; the data never reaches an outside model.</li>
         <li><strong>To the ads team:</strong> billing issues, ad feature bugs, top sellers, checks that fail, AI judgments that contradict the listing score, and answers AI flags as needing data it wasn’t given.</li>
         <li><strong>Answered by rules:</strong> budget questions get the ads team’s standard multipliers. AI never calculates amounts, and bid amounts are never given.</li>
         <li><strong>Every observation quotes its source,</strong> and rules check the quote exists.</li>
         <li><strong>Category averages and medians stay in the rule layer.</strong> They never reach the model, and Sales only see Above, On par or Needs improvement, so internal benchmarks can’t be passed on to sellers to win budget, and AI has no figures to leak.</li>
-        <li><strong>Personal data is masked by rules before AI sees it:</strong> phone numbers, emails and order numbers by pattern, buyer names by matching the shop’s order records. AI still reads the meaning; the data never reaches an outside model.</li>
         <li><strong>Stop:</strong> unknown shop IDs, or personal data that can’t be masked.</li></ul></div>
       <div id="p5-eval" class="area"><h4>5. Evaluation</h4><div>
         <div class="scroll p5t" tabindex="0" aria-label="Acceptance criteria, scroll sideways" style="margin-top:0"><table>
           <thead><tr><th>Error type</th><th>Examples</th><th>Bar</th></tr></thead>
           <tbody>
-            <tr><td><span class="case">Zero tolerance</span></td><td>Missed escalation, invented quote, contradicts the data, leaked figures</td><td>0 in the test set</td></tr>
+            <tr><td><span class="case">Zero tolerance</span></td><td>Missed escalation, fabricated quote, data contradiction, exposed category benchmark</td><td>0 in the test set</td></tr>
             <tr><td><span class="case">Tracked</span></td><td>Wrong question type, right routing</td><td>No bar; patterns logged</td></tr>
             <tr><td><span class="case">Expert review</span></td><td>Is the read usable as is, with small edits, or not at all?</td><td>80% usable to start, revisited after the pilot</td></tr>
           </tbody></table></div>
